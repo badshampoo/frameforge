@@ -1,0 +1,1125 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FrameForge – AI Product Visuals</title>
+  <meta name="description" content="Prémium AI termékfotók éttermeknek, kozmetikai márkáknak és divatcégeknek. Premium AI product visuals for food, cosmetics and fashion brands.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --black: #080808;
+      --white: #f5f2ed;
+      --cream: #e8e2d9;
+      --gold: #c9a84c;
+      --gold-dim: #8a6f2e;
+      --gray: #2a2a2a;
+      --mid: #555;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'Cormorant Garamond', serif;
+      overflow-x: hidden;
+    }
+
+    /* ── NOISE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.4;
+    }
+
+    /* ── LANG TOGGLE ── */
+    #lang-toggle {
+      position: fixed;
+      top: 2rem;
+      right: 2rem;
+      z-index: 1000;
+      display: flex;
+      gap: 0;
+      border: 1px solid var(--gold-dim);
+    }
+    #lang-toggle button {
+      background: none;
+      border: none;
+      color: var(--mid);
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      padding: 0.4rem 0.7rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    #lang-toggle button.active {
+      background: var(--gold);
+      color: var(--black);
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      padding: 2rem 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 100;
+      mix-blend-mode: normal;
+    }
+    nav::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 3rem; right: 3rem;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold-dim), transparent);
+    }
+    .logo {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.8rem;
+      letter-spacing: 0.25em;
+      color: var(--gold);
+      text-transform: uppercase;
+      text-decoration: none;
+    }
+    .logo span { color: var(--white); }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 2.5rem;
+    }
+    nav ul a {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      color: var(--mid);
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    nav ul a:hover { color: var(--gold); }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 8rem 3rem 5rem;
+      position: relative;
+      z-index: 2;
+    }
+    .hero-tag {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .hero-tag::before {
+      content: '';
+      display: block;
+      width: 2rem;
+      height: 1px;
+      background: var(--gold);
+    }
+    h1 {
+      font-size: clamp(3.5rem, 7vw, 6.5rem);
+      font-weight: 300;
+      line-height: 0.95;
+      letter-spacing: -0.02em;
+      margin-bottom: 2rem;
+    }
+    h1 em {
+      font-style: italic;
+      color: var(--gold);
+    }
+    .hero-desc {
+      font-size: 1.1rem;
+      font-weight: 300;
+      color: var(--cream);
+      line-height: 1.7;
+      max-width: 380px;
+      margin-bottom: 3rem;
+    }
+    .hero-cta {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+    .btn-primary {
+      background: var(--gold);
+      color: var(--black);
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 1rem 2rem;
+      transition: all 0.3s;
+      display: inline-block;
+    }
+    .btn-primary:hover {
+      background: var(--white);
+      transform: translateY(-2px);
+    }
+    .btn-ghost {
+      color: var(--mid);
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: color 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .btn-ghost:hover { color: var(--white); }
+    .btn-ghost::after { content: '→'; }
+
+    .hero-right {
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-image-grid {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      grid-template-rows: 1fr 1fr;
+      gap: 2px;
+    }
+    .hero-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(20%) contrast(1.05);
+      transition: filter 0.5s;
+    }
+    .hero-img:hover { filter: grayscale(0%) contrast(1.1); }
+    .hero-img-placeholder {
+      width: 100%;
+      height: 100%;
+      background: var(--gray);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--mid);
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+    }
+    .hero-counter {
+      position: absolute;
+      bottom: 2rem;
+      left: -3rem;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      color: var(--gold-dim);
+      letter-spacing: 0.2em;
+      transform: rotate(-90deg);
+      transform-origin: right center;
+      white-space: nowrap;
+    }
+
+    /* ── MARQUEE ── */
+    .marquee-wrap {
+      border-top: 1px solid var(--gray);
+      border-bottom: 1px solid var(--gray);
+      overflow: hidden;
+      padding: 1rem 0;
+      background: var(--black);
+    }
+    .marquee-track {
+      display: flex;
+      gap: 3rem;
+      white-space: nowrap;
+      animation: marquee 20s linear infinite;
+    }
+    .marquee-track span {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      color: var(--gold-dim);
+      text-transform: uppercase;
+      flex-shrink: 0;
+    }
+    .marquee-track span.dot { color: var(--gold); }
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    /* ── SECTION COMMON ── */
+    section { padding: 7rem 3rem; }
+    .section-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      color: var(--gold);
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 3rem;
+    }
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--gray);
+      max-width: 4rem;
+    }
+
+    /* ── SERVICES ── */
+    #services { background: var(--black); }
+    .services-header {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      margin-bottom: 5rem;
+      align-items: end;
+    }
+    .services-header h2 {
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      font-weight: 300;
+      line-height: 1;
+      letter-spacing: -0.02em;
+    }
+    .services-header h2 em { font-style: italic; color: var(--gold); }
+    .services-header p {
+      font-size: 1rem;
+      color: var(--mid);
+      line-height: 1.8;
+      align-self: end;
+    }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+    .service-card {
+      background: var(--gray);
+      padding: 3rem 2.5rem;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.3s;
+      cursor: default;
+    }
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 2px;
+      background: var(--gold);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s;
+    }
+    .service-card:hover { background: #1a1a1a; }
+    .service-card:hover::before { transform: scaleX(1); }
+    .service-num {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      color: var(--gold-dim);
+      letter-spacing: 0.2em;
+      margin-bottom: 2rem;
+    }
+    .service-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+      display: block;
+    }
+    .service-card h3 {
+      font-size: 1.6rem;
+      font-weight: 400;
+      letter-spacing: 0.02em;
+      margin-bottom: 0.5rem;
+    }
+    .service-card h3 em { font-style: italic; color: var(--gold); }
+    .service-card .sub {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      color: var(--gold-dim);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+    .service-card p {
+      font-size: 0.95rem;
+      color: var(--mid);
+      line-height: 1.8;
+      margin-bottom: 2rem;
+    }
+    .service-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .service-list li {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      color: var(--mid);
+      letter-spacing: 0.1em;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .service-list li::before {
+      content: '—';
+      color: var(--gold);
+    }
+
+    /* ── PORTFOLIO ── */
+    #portfolio { background: #0d0d0d; }
+    .portfolio-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 3rem;
+    }
+    .portfolio-header h2 {
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      font-weight: 300;
+      letter-spacing: -0.02em;
+    }
+    .portfolio-header h2 em { font-style: italic; color: var(--gold); }
+    .filter-tabs {
+      display: flex;
+      gap: 0;
+      border: 1px solid var(--gray);
+    }
+    .filter-tab {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 0.6rem 1.2rem;
+      cursor: pointer;
+      background: none;
+      border: none;
+      color: var(--mid);
+      transition: all 0.2s;
+      border-right: 1px solid var(--gray);
+    }
+    .filter-tab:last-child { border-right: none; }
+    .filter-tab.active, .filter-tab:hover {
+      background: var(--gold);
+      color: var(--black);
+    }
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      grid-auto-rows: 280px;
+      gap: 2px;
+    }
+    .portfolio-item {
+      position: relative;
+      overflow: hidden;
+      background: var(--gray);
+      cursor: pointer;
+    }
+    .portfolio-item:nth-child(1) { grid-column: span 5; grid-row: span 2; }
+    .portfolio-item:nth-child(2) { grid-column: span 4; }
+    .portfolio-item:nth-child(3) { grid-column: span 3; }
+    .portfolio-item:nth-child(4) { grid-column: span 4; }
+    .portfolio-item:nth-child(5) { grid-column: span 3; }
+    .portfolio-item:nth-child(6) { grid-column: span 5; }
+    .portfolio-item:nth-child(7) { grid-column: span 4; }
+    .portfolio-item:nth-child(8) { grid-column: span 3; }
+    .p-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease, filter 0.4s;
+      filter: grayscale(15%);
+    }
+    .portfolio-item:hover .p-img {
+      transform: scale(1.06);
+      filter: grayscale(0%);
+    }
+    .p-placeholder {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, var(--gray) 0%, #111 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      color: var(--mid);
+      font-family: 'Space Mono', monospace;
+      font-size: 0.55rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+    .p-placeholder .p-icon { font-size: 2rem; opacity: 0.3; }
+    .p-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity 0.3s;
+      display: flex;
+      align-items: flex-end;
+      padding: 1.5rem;
+    }
+    .portfolio-item:hover .p-overlay { opacity: 1; }
+    .p-info { }
+    .p-tag {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.55rem;
+      color: var(--gold);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 0.25rem;
+    }
+    .p-title {
+      font-size: 1.1rem;
+      font-weight: 400;
+      color: var(--white);
+    }
+
+    /* ── PRICING ── */
+    #pricing { background: var(--black); }
+    .pricing-intro {
+      max-width: 500px;
+      margin-bottom: 4rem;
+    }
+    .pricing-intro h2 {
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      font-weight: 300;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+    }
+    .pricing-intro h2 em { font-style: italic; color: var(--gold); }
+    .pricing-intro p {
+      font-size: 1rem;
+      color: var(--mid);
+      line-height: 1.8;
+    }
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+    .price-card {
+      background: var(--gray);
+      padding: 3rem 2.5rem;
+      position: relative;
+      transition: background 0.3s;
+    }
+    .price-card.featured {
+      background: #1c1c1c;
+      outline: 1px solid var(--gold-dim);
+    }
+    .price-card.featured::before {
+      content: attr(data-label);
+      position: absolute;
+      top: -1px; right: 2rem;
+      background: var(--gold);
+      color: var(--black);
+      font-family: 'Space Mono', monospace;
+      font-size: 0.55rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.8rem;
+    }
+    .price-name {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+    .price-amount {
+      font-size: 3.5rem;
+      font-weight: 300;
+      line-height: 1;
+      margin-bottom: 0.25rem;
+    }
+    .price-amount span {
+      font-size: 1.2rem;
+      color: var(--mid);
+      vertical-align: super;
+    }
+    .price-unit {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      color: var(--mid);
+      letter-spacing: 0.1em;
+      margin-bottom: 2rem;
+    }
+    .price-divider {
+      height: 1px;
+      background: var(--gray);
+      margin-bottom: 2rem;
+    }
+    .price-features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-bottom: 2.5rem;
+    }
+    .price-features li {
+      font-size: 0.95rem;
+      color: var(--cream);
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      line-height: 1.5;
+    }
+    .price-features li::before {
+      content: '✓';
+      color: var(--gold);
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      flex-shrink: 0;
+      margin-top: 0.15rem;
+    }
+    .price-features li.muted { color: var(--mid); }
+    .price-features li.muted::before { color: var(--gray); content: '—'; }
+    .btn-price {
+      display: block;
+      text-align: center;
+      padding: 0.9rem 1.5rem;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: all 0.3s;
+      border: 1px solid var(--gold-dim);
+      color: var(--gold);
+    }
+    .btn-price:hover, .price-card.featured .btn-price {
+      background: var(--gold);
+      color: var(--black);
+      border-color: var(--gold);
+    }
+
+    /* ── CONTACT ── */
+    #contact {
+      background: #0a0a0a;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: center;
+    }
+    .contact-left h2 {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 300;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+    }
+    .contact-left h2 em { font-style: italic; color: var(--gold); }
+    .contact-left p {
+      font-size: 1rem;
+      color: var(--mid);
+      line-height: 1.8;
+      margin-bottom: 2.5rem;
+    }
+    .contact-detail {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    .contact-detail .label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      color: var(--gold-dim);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      width: 4rem;
+    }
+    .contact-detail a {
+      color: var(--cream);
+      text-decoration: none;
+      font-size: 1rem;
+      transition: color 0.2s;
+    }
+    .contact-detail a:hover { color: var(--gold); }
+
+    .contact-form { display: flex; flex-direction: column; gap: 1rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+    .form-group label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      color: var(--gold-dim);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      background: var(--gray);
+      border: 1px solid transparent;
+      color: var(--white);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      padding: 0.9rem 1rem;
+      outline: none;
+      transition: border-color 0.2s;
+      width: 100%;
+      resize: vertical;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--gold-dim);
+    }
+    .form-group select option { background: var(--gray); }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .btn-submit {
+      background: var(--gold);
+      border: none;
+      color: var(--black);
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 1.1rem 2rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      margin-top: 0.5rem;
+    }
+    .btn-submit:hover {
+      background: var(--white);
+      transform: translateY(-2px);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--black);
+      border-top: 1px solid var(--gray);
+      padding: 2rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    footer .logo { font-size: 0.75rem; }
+    footer p {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.55rem;
+      color: var(--mid);
+      letter-spacing: 0.1em;
+    }
+
+    /* ── ANIMATIONS ── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav ul { display: none; }
+      #hero { grid-template-columns: 1fr; }
+      .hero-right { height: 50vh; }
+      .hero-image-grid { position: relative; height: 100%; }
+      .services-header, #contact { grid-template-columns: 1fr; gap: 2rem; }
+      .services-grid, .pricing-grid { grid-template-columns: 1fr; }
+      .portfolio-grid { grid-template-columns: 1fr 1fr; grid-auto-rows: 220px; }
+      .portfolio-item { grid-column: span 1 !important; grid-row: span 1 !important; }
+      section { padding: 4rem 1.5rem; }
+      nav { padding: 1.5rem; }
+      #lang-toggle { top: 1.5rem; right: 1.5rem; }
+      .portfolio-header { flex-direction: column; align-items: flex-start; gap: 1.5rem; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Lang Toggle -->
+  <div id="lang-toggle">
+    <button class="active" onclick="setLang('hu')">HU</button>
+    <button onclick="setLang('en')">EN</button>
+  </div>
+
+  <!-- Nav -->
+  <nav>
+    <a href="#" class="logo">Frame<span>Forge</span></a>
+    <ul>
+      <li><a href="#services" data-hu="Szolgáltatások" data-en="Services">Szolgáltatások</a></li>
+      <li><a href="#portfolio" data-hu="Portfólió" data-en="Portfolio">Portfólió</a></li>
+      <li><a href="#pricing" data-hu="Árak" data-en="Pricing">Árak</a></li>
+      <li><a href="#contact" data-hu="Kapcsolat" data-en="Contact">Kapcsolat</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero -->
+  <section id="hero">
+    <div class="hero-left">
+      <p class="hero-tag" data-hu="AI Termékfotók — Budapest" data-en="AI Product Visuals — Budapest">AI Termékfotók — Budapest</p>
+      <h1 data-hu="<em>Vizuális</em><br>erő minden<br>terméknek" data-en="<em>Visual</em><br>power for<br>every product">
+        <em>Vizuális</em><br>erő minden<br>terméknek
+      </h1>
+      <p class="hero-desc" data-hu="Prémium AI termékfotók éttermeknek, kozmetikai márkáknak és divatcégeknek — fotózás nélkül." data-en="Premium AI product visuals for food, cosmetics and fashion brands — no photoshoot needed.">
+        Prémium AI termékfotók éttermeknek, kozmetikai márkáknak és divatcégeknek — fotózás nélkül.
+      </p>
+      <div class="hero-cta">
+        <a href="#contact" class="btn-primary" data-hu="Ajánlatot kérek" data-en="Get a quote">Ajánlatot kérek</a>
+        <a href="#portfolio" class="btn-ghost" data-hu="Munkáim" data-en="View work">Munkáim</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-image-grid">
+        <div class="hero-img-placeholder">
+          <span>HERO KÉP 1</span>
+          <span style="font-size:0.5rem;opacity:0.5">Cseréld le a saját képeidre</span>
+        </div>
+        <div class="hero-img-placeholder">
+          <span>HERO KÉP 2</span>
+        </div>
+      </div>
+      <div class="hero-counter">FrameForge.hu — 2024</div>
+    </div>
+  </section>
+
+  <!-- Marquee -->
+  <div class="marquee-wrap">
+    <div class="marquee-track">
+      <span>Étkezés</span><span class="dot">✦</span>
+      <span>Kozmetikum</span><span class="dot">✦</span>
+      <span>Divat</span><span class="dot">✦</span>
+      <span>Food Photography</span><span class="dot">✦</span>
+      <span>Cosmetics</span><span class="dot">✦</span>
+      <span>Fashion</span><span class="dot">✦</span>
+      <span>AI Visuals</span><span class="dot">✦</span>
+      <span>Product Images</span><span class="dot">✦</span>
+      <span>Étkezés</span><span class="dot">✦</span>
+      <span>Kozmetikum</span><span class="dot">✦</span>
+      <span>Divat</span><span class="dot">✦</span>
+      <span>Food Photography</span><span class="dot">✦</span>
+      <span>Cosmetics</span><span class="dot">✦</span>
+      <span>Fashion</span><span class="dot">✦</span>
+      <span>AI Visuals</span><span class="dot">✦</span>
+      <span>Product Images</span><span class="dot">✦</span>
+    </div>
+  </div>
+
+  <!-- Services -->
+  <section id="services">
+    <p class="section-label" data-hu="01 — Szolgáltatások" data-en="01 — Services">01 — Szolgáltatások</p>
+    <div class="services-header fade-up">
+      <h2 data-hu="Amit <em>elkészítek</em><br>neked" data-en="What I <em>create</em><br>for you">Amit <em>elkészítek</em><br>neked</h2>
+      <p data-hu="Minden iparágnak megvan a saját vizuális nyelve. Ételfotóktól a luxuskozmetikán át a divatfelvételekig — a képek eladnak." data-en="Every industry has its own visual language. From food photography to luxury cosmetics and fashion — visuals sell.">
+        Minden iparágnak megvan a saját vizuális nyelve. Ételfotóktól a luxuskozmetikán át a divatfelvételekig — a képek eladnak.
+      </p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card fade-up">
+        <p class="service-num">— 01</p>
+        <span class="service-icon">🍽️</span>
+        <h3><em>Étel</em>fotó</h3>
+        <p class="sub" data-hu="Food Photography" data-en="Food Photography">Food Photography</p>
+        <p data-hu="Éttermi menük, delivery appok, élelmiszer webshopok számára. Gőzölgő ételek, tökéletes fény, étvágyat csinál." data-en="For restaurant menus, delivery apps and food shops. Steaming dishes, perfect lighting, makes mouths water.">
+          Éttermi menük, delivery appok, élelmiszer webshopok számára. Gőzölgő ételek, tökéletes fény, étvágyat csinál.
+        </p>
+        <ul class="service-list">
+          <li data-hu="Menükártyák, weboldal képek" data-en="Menu cards, website visuals">Menükártyák, weboldal képek</li>
+          <li data-hu="Social media tartalom" data-en="Social media content">Social media tartalom</li>
+          <li data-hu="Facebook / Instagram hirdetések" data-en="Facebook / Instagram ads">Facebook / Instagram hirdetések</li>
+        </ul>
+      </div>
+      <div class="service-card fade-up">
+        <p class="service-num">— 02</p>
+        <span class="service-icon">💄</span>
+        <h3><em>Kozmetikai</em><br>képek</h3>
+        <p class="sub" data-hu="Cosmetics Photography" data-en="Cosmetics Photography">Cosmetics Photography</p>
+        <p data-hu="Márvány felületek, selymes textúrák, luxus atmoszféra. Webshopoknak folyamatosan kellenek friss produktképek." data-en="Marble surfaces, silky textures, luxury atmosphere. Webshops always need fresh product images.">
+          Márvány felületek, selymes textúrák, luxus atmoszféra. Webshopoknak folyamatosan kellenek friss produktképek.
+        </p>
+        <ul class="service-list">
+          <li data-hu="Webshop termékképek" data-en="Webshop product images">Webshop termékképek</li>
+          <li data-hu="Brand lifestyle fotók" data-en="Brand lifestyle photos">Brand lifestyle fotók</li>
+          <li data-hu="Csomagolás vizualizáció" data-en="Packaging visualization">Csomagolás vizualizáció</li>
+        </ul>
+      </div>
+      <div class="service-card fade-up">
+        <p class="service-num">— 03</p>
+        <span class="service-icon">👗</span>
+        <h3><em>Divat</em><br>képek</h3>
+        <p class="sub" data-hu="Fashion Photography" data-en="Fashion Photography">Fashion Photography</p>
+        <p data-hu="Webshopoknak, tervezőknek, indie márkáknak. A drága fotózás helyett prémium minőség, töredék áron." data-en="For webshops, designers and indie brands. Premium quality instead of expensive photoshoots.">
+          Webshopoknak, tervezőknek, indie márkáknak. A drága fotózás helyett prémium minőség, töredék áron.
+        </p>
+        <ul class="service-list">
+          <li data-hu="Termék és lifestyle képek" data-en="Product and lifestyle images">Termék és lifestyle képek</li>
+          <li data-hu="Lookbook összeállítások" data-en="Lookbook compositions">Lookbook összeállítások</li>
+          <li data-hu="Reklám kampány anyagok" data-en="Ad campaign materials">Reklám kampány anyagok</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Portfolio -->
+  <section id="portfolio">
+    <p class="section-label" data-hu="02 — Portfólió" data-en="02 — Portfolio">02 — Portfólió</p>
+    <div class="portfolio-header fade-up">
+      <h2 data-hu="Válogatott <em>munkák</em>" data-en="Selected <em>works</em>">Válogatott <em>munkák</em></h2>
+      <div class="filter-tabs">
+        <button class="filter-tab active" data-filter="all" data-hu="Összes" data-en="All">Összes</button>
+        <button class="filter-tab" data-filter="food" data-hu="Étel" data-en="Food">Étel</button>
+        <button class="filter-tab" data-filter="cosmetics" data-hu="Kozmetikum" data-en="Cosmetics">Kozmetikum</button>
+        <button class="filter-tab" data-filter="fashion" data-hu="Divat" data-en="Fashion">Divat</button>
+      </div>
+    </div>
+    <div class="portfolio-grid">
+      <div class="portfolio-item" data-category="food">
+        <div class="p-placeholder"><span class="p-icon">🍽️</span><span>ÉTEL KÉP 1</span><span style="font-size:0.5rem;opacity:0.5">pl. gulyás kép</span></div>
+        <div class="p-overlay"><div class="p-info"><span class="p-tag" data-hu="Étkezés" data-en="Food">Étkezés</span><p class="p-title">Magyar Gulyás</p></div></div>
+      </div>
+      <div class="portfolio-item" data-category="fashion">
+        <div class="p-placeholder"><span class="p-icon">👗</span><span>DIVAT KÉP 1</span></div>
+        <div class="p-overlay"><div class="p-info"><span class="p-tag" data-hu="Divat" data-en="Fashion">Divat</span><p class="p-title" data-hu="Futurewave Kollekció" data-en="Futurewave Collection">Futurewave Kollekció</p></div></div>
+      </div>
+      <div class="portfolio-item" data-category="cosmetics">
+        <div class="p-placeholder"><span class="p-icon">💄</span><span>KOZMETIKUM 1</span></div>
+        <div class="p-overlay"><div class="p-info"><span class="p-tag" data-hu="Kozmetikum" data-en="Cosmetics">Kozmetikum</span><p class="p-title" data-hu="Arcápoló Szérum" data-en="Face Serum">Arcápoló Szérum</p></div></div>
+      </div>
+      <div class="portfolio-item" data-category="food">
+        <div class="p-placeholder"><span class="p-icon">🍔</span><span>ÉTEL KÉP 2</span><span style="font-size:0.5rem;opacity:0.5">pl. burger kép</span></div>
+        <div class="p-overlay"><div class="p-info"><span class="p-tag" data-hu="Étkezés" data-en="Food">Étkezés</span><p class="p-title">Artisan Burger</p></div></div>
+      </div>
+      <div class="portfolio-item" data-category="fashion">
+        <div class="p-placeholder"><span class="p-icon">👗</span><span>DIVAT KÉP 2</span></div>
+        <div class="p-overlay"><div class="p-info"><span class="p-tag" data-hu="Divat" data-en="Fashion">Divat</span><p class="p-title" data-hu="Latex Kollekcio" data-en="Latex Collection">Latex Kollekció</p></div></div>
+      </div>
+      <div class="portfolio-item" data-category="cosmetics">
+        <div class="p-placeholder"><span class="p-icon">💄</span><span>KOZMETIKUM 2</span></div>
+        <div class="p-overlay"><div class="p-info"><span class="p-tag" data-hu="Kozmetikum" data-en="Cosmetics">Kozmetikum</span><p class="p-title" data-hu="Parfüm Kampány" data-en="Perfume Campaign">Parfüm Kampány</p></div></div>
+      </div>
+      <div class="portfolio-item" data-category="food">
+        <div class="p-placeholder"><span class="p-icon">☕</span><span>ÉTEL KÉP 3</span></div>
+        <div class="p-overlay"><div class="p-info"><span class="p-tag" data-hu="Étkezés" data-en="Food">Étkezés</span><p class="p-title">Espresso</p></div></div>
+      </div>
+      <div class="portfolio-item" data-category="fashion">
+        <div class="p-placeholder"><span class="p-icon">👗</span><span>DIVAT KÉP 3</span></div>
+        <div class="p-overlay"><div class="p-info"><span class="p-tag" data-hu="Divat" data-en="Fashion">Divat</span><p class="p-title" data-hu="Avant-Garde" data-en="Avant-Garde">Avant-Garde</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing -->
+  <section id="pricing">
+    <p class="section-label" data-hu="03 — Árak" data-en="03 — Pricing">03 — Árak</p>
+    <div class="pricing-intro fade-up">
+      <h2 data-hu="Átlátható <em>árazás</em>" data-en="Transparent <em>pricing</em>">Átlátható <em>árazás</em></h2>
+      <p data-hu="Egyedi ajánlatot is kérhetsz — írj és megbeszéljük a részleteket." data-en="Custom quotes available — get in touch and we'll work out the details.">
+        Egyedi ajánlatot is kérhetsz — írj és megbeszéljük a részleteket.
+      </p>
+    </div>
+    <div class="pricing-grid">
+      <div class="price-card fade-up">
+        <p class="price-name" data-hu="Alap" data-en="Basic">Alap</p>
+        <div class="price-amount"><span>Ft</span>15 000</div>
+        <p class="price-unit" data-hu="/ csomag" data-en="/ package">/ csomag</p>
+        <div class="price-divider"></div>
+        <ul class="price-features">
+          <li data-hu="5 egyedi kép" data-en="5 unique images">5 egyedi kép</li>
+          <li data-hu="2 körös javítás" data-en="2 revision rounds">2 körös javítás</li>
+          <li data-hu="Nyomdakész felbontás" data-en="Print-ready resolution">Nyomdakész felbontás</li>
+          <li class="muted" data-hu="Brand stílus kialakítás" data-en="Brand style creation">Brand stílus kialakítás</li>
+          <li class="muted" data-hu="Sürgősségi pótlék nélkül" data-en="No rush fee">Rush delivery</li>
+        </ul>
+        <a href="#contact" class="btn-price" data-hu="Megrendelem" data-en="Order now">Megrendelem</a>
+      </div>
+      <div class="price-card featured fade-up" data-label="Népszerű">
+        <p class="price-name" data-hu="Közepes" data-en="Standard">Közepes</p>
+        <div class="price-amount"><span>Ft</span>35 000</div>
+        <p class="price-unit" data-hu="/ csomag" data-en="/ package">/ csomag</p>
+        <div class="price-divider"></div>
+        <ul class="price-features">
+          <li data-hu="15 egyedi kép" data-en="15 unique images">15 egyedi kép</li>
+          <li data-hu="Korlátlan körös javítás" data-en="Unlimited revisions">Korlátlan körös javítás</li>
+          <li data-hu="Nyomdakész felbontás" data-en="Print-ready resolution">Nyomdakész felbontás</li>
+          <li data-hu="Brand stílus kialakítás" data-en="Brand style creation">Brand stílus kialakítás</li>
+          <li class="muted" data-hu="Sürgősség nélkül" data-en="Standard delivery">Rush delivery</li>
+        </ul>
+        <a href="#contact" class="btn-price" data-hu="Megrendelem" data-en="Order now">Megrendelem</a>
+      </div>
+      <div class="price-card fade-up">
+        <p class="price-name" data-hu="Prémium" data-en="Premium">Prémium</p>
+        <div class="price-amount"><span>Ft</span>80 000</div>
+        <p class="price-unit" data-hu="/ hó — folyamatos együttműködés" data-en="/ mo — ongoing partnership">/ hó — folyamatos</p>
+        <div class="price-divider"></div>
+        <ul class="price-features">
+          <li data-hu="30 kép / hónap" data-en="30 images / month">30 kép / hónap</li>
+          <li data-hu="Korlátlan körös javítás" data-en="Unlimited revisions">Korlátlan körös javítás</li>
+          <li data-hu="Nyomdakész felbontás" data-en="Print-ready resolution">Nyomdakész felbontás</li>
+          <li data-hu="Brand stílus kialakítás" data-en="Brand style creation">Brand stílus kialakítás</li>
+          <li data-hu="Sürgős határidők kezelése" data-en="Rush deadlines handled">Sürgős határidők</li>
+        </ul>
+        <a href="#contact" class="btn-price" data-hu="Megrendelem" data-en="Order now">Megrendelem</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact">
+    <div class="contact-left fade-up">
+      <p class="section-label" data-hu="04 — Kapcsolat" data-en="04 — Contact">04 — Kapcsolat</p>
+      <h2 data-hu="Kezdjük <em>el</em><br>a munkát" data-en="Let's <em>start</em><br>working">Kezdjük <em>el</em><br>a munkát</h2>
+      <p data-hu="Küldj egy rövid üzenetet és 24 órán belül visszajelzek árajánlattal." data-en="Send a short message and I'll get back to you within 24 hours with a quote.">
+        Küldj egy rövid üzenetet és 24 órán belül visszajelzek árajánlattal.
+      </p>
+      <div class="contact-detail">
+        <span class="label">Email</span>
+        <a href="mailto:badshampoo@gmail.com">badshampoo@gmail.com</a>
+      </div>
+      <div class="contact-detail">
+        <span class="label">Web</span>
+        <a href="https://frameforge.hu">frameforge.hu</a>
+      </div>
+    </div>
+    <div class="contact-right fade-up">
+      <form class="contact-form" onsubmit="handleSubmit(event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label data-hu="Neved" data-en="Your name">Neved</label>
+            <input type="text" placeholder="Kovács Péter" required>
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" placeholder="pelda@gmail.com" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label data-hu="Szolgáltatás" data-en="Service">Szolgáltatás</label>
+          <select>
+            <option value="" data-hu="Válassz kategóriát" data-en="Select category">Válassz kategóriát</option>
+            <option value="food" data-hu="Étkezés fotók" data-en="Food photography">Étkezés fotók</option>
+            <option value="cosmetics" data-hu="Kozmetikum képek" data-en="Cosmetics images">Kozmetikum képek</option>
+            <option value="fashion" data-hu="Divat képek" data-en="Fashion images">Divat képek</option>
+            <option value="other" data-hu="Egyéb / Ajánlat" data-en="Other / Custom quote">Egyéb / Egyedi ajánlat</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label data-hu="Üzeneted" data-en="Your message">Üzeneted</label>
+          <textarea rows="4" placeholder="Írd le mit szeretnél..."></textarea>
+        </div>
+        <button type="submit" class="btn-submit" data-hu="Üzenet küldése →" data-en="Send message →">Üzenet küldése →</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <a href="#" class="logo">Frame<span>Forge</span></a>
+    <p data-hu="© 2024 FrameForge — AI Termékfotók" data-en="© 2024 FrameForge — AI Product Visuals">© 2024 FrameForge — AI Termékfotók</p>
+  </footer>
+
+  <script>
+    // ── LANG TOGGLE ──────────────────────────────────────────────────────
+    let currentLang = 'hu';
+    function setLang(lang) {
+      currentLang = lang;
+      document.querySelectorAll('#lang-toggle button').forEach(b => {
+        b.classList.toggle('active', b.textContent.toLowerCase() === lang);
+      });
+      document.querySelectorAll('[data-hu]').forEach(el => {
+        const val = el.getAttribute('data-' + lang);
+        if (!val) return;
+        if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+          el.placeholder = val;
+        } else if (el.tagName === 'OPTION') {
+          el.textContent = val;
+        } else {
+          el.innerHTML = val;
+        }
+      });
+      // Update featured label
+      const feat = document.querySelector('.price-card.featured');
+      if (feat) feat.setAttribute('data-label', lang === 'hu' ? 'Népszerű' : 'Popular');
+    }
+
+    // ── SCROLL ANIMATIONS ─────────────────────────────────────────────
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), i * 120);
+        }
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+    // ── PORTFOLIO FILTER ───────────────────────────────────────────────
+    document.querySelectorAll('.filter-tab').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-tab').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const filter = btn.dataset.filter;
+        document.querySelectorAll('.portfolio-item').forEach(item => {
+          if (filter === 'all' || item.dataset.category === filter) {
+            item.style.display = '';
+            item.style.opacity = '1';
+          } else {
+            item.style.opacity = '0.15';
+          }
+        });
+      });
+    });
+
+    // ── FORM SUBMIT ───────────────────────────────────────────────────
+    function handleSubmit(e) {
+      e.preventDefault();
+      const btn = e.target.querySelector('.btn-submit');
+      btn.textContent = currentLang === 'hu' ? 'Elküldve ✓' : 'Sent ✓';
+      btn.style.background = '#2a5a2a';
+      btn.style.color = '#fff';
+      setTimeout(() => {
+        btn.textContent = currentLang === 'hu' ? 'Üzenet küldése →' : 'Send message →';
+        btn.style.background = '';
+        btn.style.color = '';
+        e.target.reset();
+      }, 3000);
+    }
+
+    // ── SMOOTH NAV ────────────────────────────────────────────────────
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const target = document.querySelector(a.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
