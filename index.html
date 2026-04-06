@@ -42,13 +42,10 @@
 
     /* ── LANG TOGGLE ── */
     #lang-toggle {
-      position: fixed;
-      top: 2rem;
-      right: 2rem;
-      z-index: 1000;
       display: flex;
       gap: 0;
       border: 1px solid var(--gold-dim);
+      flex-shrink: 0;
     }
     #lang-toggle button {
       background: none;
@@ -71,12 +68,12 @@
       position: fixed;
       top: 0; left: 0;
       width: 100%;
-      padding: 2rem 3rem;
+      padding: 1.5rem 3rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 2rem;
       z-index: 100;
-      mix-blend-mode: normal;
     }
     nav::after {
       content: '';
@@ -764,12 +761,6 @@
 </head>
 <body>
 
-  <!-- Lang Toggle -->
-  <div id="lang-toggle">
-    <button class="active" onclick="setLang('hu')">HU</button>
-    <button onclick="setLang('en')">EN</button>
-  </div>
-
   <!-- Nav -->
   <nav>
     <a href="#" class="logo">Frame<span>Forge</span></a>
@@ -779,6 +770,10 @@
       <li><a href="#pricing" data-hu="Árak" data-en="Pricing">Árak</a></li>
       <li><a href="#contact" data-hu="Kapcsolat" data-en="Contact">Kapcsolat</a></li>
     </ul>
+    <div id="lang-toggle">
+      <button class="active" onclick="setLang('hu')">HU</button>
+      <button onclick="setLang('en')">EN</button>
+    </div>
   </nav>
 
   <!-- Hero -->
@@ -940,52 +935,95 @@
     <p class="section-label" data-hu="03 — Árak" data-en="03 — Pricing">03 — Árak</p>
     <div class="pricing-intro fade-up">
       <h2 data-hu="Átlátható <em>árazás</em>" data-en="Transparent <em>pricing</em>">Átlátható <em>árazás</em></h2>
-      <p data-hu="Egyedi ajánlatot is kérhetsz — írj és megbeszéljük a részleteket." data-en="Custom quotes available — get in touch and we'll work out the details.">
-        Egyedi ajánlatot is kérhetsz — írj és megbeszéljük a részleteket.
+      <p data-hu="2 db ingyenes próbakép megrendeléstől függetlenül — nézd meg a minőséget mielőtt döntesz." data-en="2 free sample images with no obligation — see the quality before you decide.">
+        2 db ingyenes próbakép megrendeléstől függetlenül — nézd meg a minőséget mielőtt döntesz.
       </p>
     </div>
+
+    <!-- Próbakép banner -->
+    <div class="fade-up" style="background:var(--gold);padding:1rem 2rem;margin-bottom:2px;display:flex;align-items:center;justify-content:space-between;gap:2rem;flex-wrap:wrap;">
+      <p style="font-family:'Space Mono',monospace;font-size:0.65rem;letter-spacing:0.15em;color:var(--black);text-transform:uppercase;">
+        🎁 <span data-hu="2 db ingyenes próbakép — kötelezettség nélkül" data-en="2 free sample images — no obligation">2 db ingyenes próbakép — kötelezettség nélkül</span>
+      </p>
+      <a href="#contact" style="font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.15em;color:var(--black);text-transform:uppercase;border:1px solid var(--black);padding:0.4rem 1rem;text-decoration:none;" data-hu="Kérem a próbaképeket" data-en="Request sample images">Kérem a próbaképeket</a>
+    </div>
+
     <div class="pricing-grid">
       <div class="price-card fade-up">
         <p class="price-name" data-hu="Alap" data-en="Basic">Alap</p>
-        <div class="price-amount"><span>Ft</span>15 000</div>
-        <p class="price-unit" data-hu="/ csomag" data-en="/ package">/ csomag</p>
+        <div class="price-amount"><span>Ft</span>2 900</div>
+        <p class="price-unit" data-hu="/ kép · 1–10 db" data-en="/ image · 1–10 pcs">/ kép · 1–10 db</p>
         <div class="price-divider"></div>
         <ul class="price-features">
-          <li data-hu="5 egyedi kép" data-en="5 unique images">5 egyedi kép</li>
-          <li data-hu="2 körös javítás" data-en="2 revision rounds">2 körös javítás</li>
-          <li data-hu="Nyomdakész felbontás" data-en="Print-ready resolution">Nyomdakész felbontás</li>
-          <li class="muted" data-hu="Brand stílus kialakítás" data-en="Brand style creation">Brand stílus kialakítás</li>
-          <li class="muted" data-hu="Sürgősségi pótlék nélkül" data-en="No rush fee">Rush delivery</li>
+          <li data-hu="Fehér vagy fekete háttér" data-en="White or black background">Fehér vagy fekete háttér</li>
+          <li data-hu="Alap retusálás (por, szennyeződés)" data-en="Basic retouch (dust, dirt)">Alap retusálás</li>
+          <li data-hu="4000×3000 px · 300 dpi" data-en="4000×3000 px · 300 dpi">4000×3000 px · 300 dpi</li>
+          <li data-hu="JPG formátum" data-en="JPG format">JPG formátum</li>
+          <li data-hu="Teljes felhasználási jog" data-en="Full usage rights">Teljes felhasználási jog</li>
+          <li data-hu="Szállítás: 48 órán belül" data-en="Delivery: within 48 hours">Szállítás: 48 órán belül</li>
+          <li class="muted" data-hu="Lifestyle háttér" data-en="Lifestyle background">Lifestyle háttér</li>
+          <li class="muted" data-hu="Brand stílus" data-en="Brand style">Brand stílus</li>
         </ul>
         <a href="#contact" class="btn-price" data-hu="Megrendelem" data-en="Order now">Megrendelem</a>
       </div>
       <div class="price-card featured fade-up" data-label="Népszerű">
-        <p class="price-name" data-hu="Közepes" data-en="Standard">Közepes</p>
-        <div class="price-amount"><span>Ft</span>35 000</div>
-        <p class="price-unit" data-hu="/ csomag" data-en="/ package">/ csomag</p>
+        <p class="price-name" data-hu="Normál" data-en="Standard">Normál</p>
+        <div class="price-amount"><span>Ft</span>3 400</div>
+        <p class="price-unit" data-hu="/ kép · 1–10 db" data-en="/ image · 1–10 pcs">/ kép · 1–10 db</p>
         <div class="price-divider"></div>
         <ul class="price-features">
-          <li data-hu="15 egyedi kép" data-en="15 unique images">15 egyedi kép</li>
-          <li data-hu="Korlátlan körös javítás" data-en="Unlimited revisions">Korlátlan körös javítás</li>
-          <li data-hu="Nyomdakész felbontás" data-en="Print-ready resolution">Nyomdakész felbontás</li>
+          <li data-hu="Választható háttér (fehér, fekete, lifestyle)" data-en="Selectable background (white, black, lifestyle)">Választható háttér</li>
+          <li data-hu="Kreatív retusálás (fény, dinamika, perspektíva)" data-en="Creative retouch (light, dynamics, perspective)">Kreatív retusálás</li>
+          <li data-hu="PNG / PSD konvertálás" data-en="PNG / PSD conversion">PNG / PSD konvertálás</li>
+          <li data-hu="4000×3000 px · 300 dpi" data-en="4000×3000 px · 300 dpi">4000×3000 px · 300 dpi</li>
+          <li data-hu="Teljes felhasználási jog" data-en="Full usage rights">Teljes felhasználási jog</li>
+          <li data-hu="Szállítás: 24 órán belül" data-en="Delivery: within 24 hours">Szállítás: 24 órán belül</li>
           <li data-hu="Brand stílus kialakítás" data-en="Brand style creation">Brand stílus kialakítás</li>
-          <li class="muted" data-hu="Sürgősség nélkül" data-en="Standard delivery">Rush delivery</li>
+          <li class="muted" data-hu="Tükörképezés, árnyékolás" data-en="Mirroring, shadowing">Tükörképezés, árnyékolás</li>
         </ul>
         <a href="#contact" class="btn-price" data-hu="Megrendelem" data-en="Order now">Megrendelem</a>
       </div>
       <div class="price-card fade-up">
         <p class="price-name" data-hu="Prémium" data-en="Premium">Prémium</p>
-        <div class="price-amount"><span>Ft</span>80 000</div>
-        <p class="price-unit" data-hu="/ hó — folyamatos együttműködés" data-en="/ mo — ongoing partnership">/ hó — folyamatos</p>
+        <div class="price-amount"><span>Ft</span>3 900</div>
+        <p class="price-unit" data-hu="/ kép · 1–10 db" data-en="/ image · 1–10 pcs">/ kép · 1–10 db</p>
         <div class="price-divider"></div>
         <ul class="price-features">
-          <li data-hu="30 kép / hónap" data-en="30 images / month">30 kép / hónap</li>
-          <li data-hu="Korlátlan körös javítás" data-en="Unlimited revisions">Korlátlan körös javítás</li>
-          <li data-hu="Nyomdakész felbontás" data-en="Print-ready resolution">Nyomdakész felbontás</li>
+          <li data-hu="Teljes kreatív szabadság (textúra, tükörképes, stb.)" data-en="Full creative freedom (texture, mirror, etc.)">Teljes kreatív szabadság</li>
+          <li data-hu="Körbevágás, maszkolás, árnyékolás, tükörképezés" data-en="Clipping, masking, shadow, mirror">Körbevágás, maszkolás, árnyékolás</li>
+          <li data-hu="8000×6000 px · 300 dpi" data-en="8000×6000 px · 300 dpi">8000×6000 px · 300 dpi</li>
+          <li data-hu="TIFF / PNG / JPG" data-en="TIFF / PNG / JPG">TIFF / PNG / JPG</li>
+          <li data-hu="Teljes felhasználási jog" data-en="Full usage rights">Teljes felhasználási jog</li>
+          <li data-hu="Szállítás: 24 órán belül" data-en="Delivery: within 24 hours">Szállítás: 24 órán belül</li>
           <li data-hu="Brand stílus kialakítás" data-en="Brand style creation">Brand stílus kialakítás</li>
-          <li data-hu="Sürgős határidők kezelése" data-en="Rush deadlines handled">Sürgős határidők</li>
+          <li data-hu="Prioritásos ügyintézés" data-en="Priority handling">Prioritásos ügyintézés</li>
         </ul>
         <a href="#contact" class="btn-price" data-hu="Megrendelem" data-en="Order now">Megrendelem</a>
+      </div>
+    </div>
+
+    <!-- Mennyiségi kedvezmény + garancia -->
+    <div class="fade-up" style="display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-top:2px;">
+      <div style="background:var(--gray);padding:1.5rem 2rem;">
+        <p style="font-family:'Space Mono',monospace;font-size:0.6rem;color:var(--gold);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:1rem;" data-hu="Mennyiségi kedvezmény" data-en="Volume discount">Mennyiségi kedvezmény</p>
+        <table style="width:100%;border-collapse:collapse;font-family:'Space Mono',monospace;font-size:0.6rem;">
+          <tr style="color:var(--mid);">
+            <td style="padding:0.4rem 0;" data-hu="Mennyiség" data-en="Quantity">Mennyiség</td>
+            <td style="padding:0.4rem 0;text-align:right;" data-hu="Kedvezmény" data-en="Discount">Kedvezmény</td>
+          </tr>
+          <tr style="border-top:1px solid #333;">
+            <td style="padding:0.5rem 0;color:var(--cream);" data-hu="11–50 db" data-en="11–50 pcs">11–50 db</td>
+            <td style="padding:0.5rem 0;text-align:right;color:var(--gold);">−6%</td>
+          </tr>
+          <tr style="border-top:1px solid #333;">
+            <td style="padding:0.5rem 0;color:var(--cream);" data-hu="50+ db" data-en="50+ pcs">50+ db</td>
+            <td style="padding:0.5rem 0;text-align:right;color:var(--gold);">−12%</td>
+          </tr>
+        </table>
+      </div>
+      <div style="background:var(--gray);padding:1.5rem 2rem;">
+        <p style="font-family:'Space Mono',monospace;font-size:0.6rem;color:var(--gold);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:1rem;" data-hu="Határidő garancia" data-en="Deadline guarantee">Határidő garancia</p>
+        <p style="font-size:0.95rem;color:var(--cream);line-height:1.7;" data-hu="Ha a megbeszélt határidőt nem tartjuk, a megrendelés <strong style='color:var(--gold)'>ingyenes</strong>." data-en="If we miss the agreed deadline, your order is <strong style='color:var(--gold)'>free of charge</strong>.">Ha a megbeszélt határidőt nem tartjuk, a megrendelés <strong style="color:var(--gold)">ingyenes</strong>.</p>
       </div>
     </div>
   </section>
@@ -1096,7 +1134,7 @@
     });
 
     // ── CONFIG ────────────────────────────────────────────────────────
-    const API_URL = 'https://badshampoo.myvnc.com/send_mail.php'; // ← változtasd meg!
+    const API_URL = 'https://SAJAT-DOMAIN.dyndns.org/send_mail.php'; // ← változtasd meg!
 
     // ── TRACKING ─────────────────────────────────────────────────────
     function trackVisit() {
