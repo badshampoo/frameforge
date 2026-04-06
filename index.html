@@ -1008,20 +1008,20 @@
       </div>
     </div>
     <div class="contact-right fade-up">
-      <form class="contact-form" onsubmit="handleSubmit(event)">
+      <form class="contact-form" onsubmit="handleSubmit(event)" id="contact-form">
         <div class="form-row">
           <div class="form-group">
             <label data-hu="Neved" data-en="Your name">Neved</label>
-            <input type="text" placeholder="Kovács Péter" required>
+            <input type="text" placeholder="Kovács Péter" name="name" required>
           </div>
           <div class="form-group">
             <label>Email</label>
-            <input type="email" placeholder="pelda@gmail.com" required>
+            <input type="email" placeholder="pelda@gmail.com" name="email" required>
           </div>
         </div>
         <div class="form-group">
           <label data-hu="Szolgáltatás" data-en="Service">Szolgáltatás</label>
-          <select>
+          <select name="service">
             <option value="" data-hu="Válassz kategóriát" data-en="Select category">Válassz kategóriát</option>
             <option value="food" data-hu="Étkezés fotók" data-en="Food photography">Étkezés fotók</option>
             <option value="cosmetics" data-hu="Kozmetikum képek" data-en="Cosmetics images">Kozmetikum képek</option>
@@ -1031,7 +1031,7 @@
         </div>
         <div class="form-group">
           <label data-hu="Üzeneted" data-en="Your message">Üzeneted</label>
-          <textarea rows="4" placeholder="Írd le mit szeretnél..."></textarea>
+          <textarea rows="4" placeholder="Írd le mit szeretnél..." name="message"></textarea></textarea>
         </div>
         <button type="submit" class="btn-submit" data-hu="Üzenet küldése →" data-en="Send message →">Üzenet küldése →</button>
       </form>
@@ -1095,19 +1095,56 @@
       });
     });
 
+    // ── CONFIG ────────────────────────────────────────────────────────
+    const API_URL = 'https://badshampoo.myvnc.com/send_mail.php'; // ← változtasd meg!
+
+    // ── TRACKING ─────────────────────────────────────────────────────
+    function trackVisit() {
+      const data = new FormData();
+      data.append('action', 'track');
+      data.append('page', window.location.pathname);
+      data.append('lang', currentLang);
+      data.append('ref', document.referrer || 'direct');
+      fetch(API_URL, { method: 'POST', body: data }).catch(() => {});
+    }
+    window.addEventListener('load', trackVisit);
+
     // ── FORM SUBMIT ───────────────────────────────────────────────────
-    function handleSubmit(e) {
+    async function handleSubmit(e) {
       e.preventDefault();
-      const btn = e.target.querySelector('.btn-submit');
-      btn.textContent = currentLang === 'hu' ? 'Elküldve ✓' : 'Sent ✓';
-      btn.style.background = '#2a5a2a';
-      btn.style.color = '#fff';
+      const form = e.target;
+      const btn  = form.querySelector('.btn-submit');
+      const data = new FormData(form);
+      data.append('action', 'contact');
+
+      btn.textContent = currentLang === 'hu' ? 'Küldés...' : 'Sending...';
+      btn.disabled = true;
+
+      try {
+        const res  = await fetch(API_URL, { method: 'POST', body: data });
+        const json = await res.json();
+        if (json.success) {
+          btn.textContent = currentLang === 'hu' ? 'Elküldve ✓' : 'Sent ✓';
+          btn.style.background = '#2a5a2a';
+          btn.style.color = '#fff';
+          form.reset();
+        } else {
+          btn.textContent = 'Hiba – próbáld újra';
+          btn.style.background = '#5a2a2a';
+          btn.style.color = '#fff';
+        }
+      } catch {
+        btn.textContent = 'Hiba – próbáld újra';
+        btn.style.background = '#5a2a2a';
+        btn.style.color = '#fff';
+      }
+
       setTimeout(() => {
         btn.textContent = currentLang === 'hu' ? 'Üzenet küldése →' : 'Send message →';
         btn.style.background = '';
         btn.style.color = '';
-        e.target.reset();
-      }, 3000);
+        btn.disabled = false;
+      }, 4000);
     }
 
     // ── SMOOTH NAV ────────────────────────────────────────────────────

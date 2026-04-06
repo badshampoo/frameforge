@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FrameForge – Analytics</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --black: #080808;
+      --white: #f5f2ed;
+      --cream: #e8e2d9;
+      --gold: #c9a84c;
+      --gold-dim: #8a6f2e;
+      --gray: #2a2a2a;
+      --mid: #555;
+      --green: #2a5a2a;
+      --red: #5a2a2a;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'Cormorant Garamond', serif;
+      min-height: 100vh;
+      padding: 2rem;
+    }
+    /* ── LOGIN ── */
+    #login-screen {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 80vh;
+      gap: 1.5rem;
+    }
+    .login-box {
+      background: var(--gray);
+      padding: 3rem;
+      width: 100%;
+      max-width: 380px;
+      border-top: 2px solid var(--gold);
+    }
+    .login-box h1 {
+      font-size: 1.8rem;
+      font-weight: 300;
+      margin-bottom: 0.5rem;
+    }
+    .login-box p {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      color: var(--mid);
+      letter-spacing: 0.15em;
+      margin-bottom: 2rem;
+    }
+    .login-box input {
+      width: 100%;
+      background: var(--black);
+      border: 1px solid var(--gray);
+      color: var(--white);
+      font-family: 'Space Mono', monospace;
+      font-size: 0.8rem;
+      padding: 0.8rem 1rem;
+      margin-bottom: 1rem;
+      outline: none;
+    }
+    .login-box input:focus { border-color: var(--gold-dim); }
+    .login-btn {
+      width: 100%;
+      background: var(--gold);
+      border: none;
+      color: var(--black);
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 0.9rem;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .login-btn:hover { background: var(--white); }
+    .login-error {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      color: #ff6b6b;
+      text-align: center;
+      display: none;
+    }
+
+    /* ── DASHBOARD ── */
+    #dashboard { display: none; }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--gray);
+    }
+    .logo {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.8rem;
+      letter-spacing: 0.25em;
+      color: var(--gold);
+      text-decoration: none;
+    }
+    .logo span { color: var(--white); }
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    .last-updated {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.55rem;
+      color: var(--mid);
+      letter-spacing: 0.1em;
+    }
+    .logout-btn {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.55rem;
+      color: var(--mid);
+      letter-spacing: 0.1em;
+      background: none;
+      border: 1px solid var(--gray);
+      padding: 0.4rem 0.8rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .logout-btn:hover { color: var(--white); border-color: var(--mid); }
+
+    /* ── STAT CARDS ── */
+    .stat-cards {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2px;
+      margin-bottom: 2px;
+    }
+    .stat-card {
+      background: var(--gray);
+      padding: 1.5rem 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 2px;
+      background: var(--gold);
+    }
+    .stat-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.55rem;
+      color: var(--mid);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+    .stat-value {
+      font-size: 2.8rem;
+      font-weight: 300;
+      line-height: 1;
+      color: var(--white);
+    }
+    .stat-value.gold { color: var(--gold); }
+    .stat-sub {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.55rem;
+      color: var(--mid);
+      margin-top: 0.4rem;
+    }
+    .stat-trend {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+    }
+    .trend-up   { color: #4caf50; }
+    .trend-down { color: #f44336; }
+    .trend-same { color: var(--mid); }
+
+    /* ── CHARTS ── */
+    .charts-row {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 2px;
+      margin-bottom: 2px;
+    }
+    .chart-box {
+      background: var(--gray);
+      padding: 2rem;
+    }
+    .chart-title {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      color: var(--gold);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .chart-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: #333;
+    }
+    /* Bar chart */
+    .bar-chart {
+      display: flex;
+      align-items: flex-end;
+      gap: 3px;
+      height: 140px;
+    }
+    .bar-wrap {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      height: 100%;
+      justify-content: flex-end;
+    }
+    .bar {
+      width: 100%;
+      background: var(--gold-dim);
+      transition: background 0.2s;
+      min-height: 2px;
+      position: relative;
+      cursor: pointer;
+    }
+    .bar:hover { background: var(--gold); }
+    .bar-tooltip {
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--black);
+      color: var(--white);
+      font-family: 'Space Mono', monospace;
+      font-size: 0.5rem;
+      padding: 0.2rem 0.4rem;
+      white-space: nowrap;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.2s;
+      z-index: 10;
+    }
+    .bar:hover .bar-tooltip { opacity: 1; }
+    .bar-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.4rem;
+      color: var(--mid);
+      transform: rotate(-45deg);
+      white-space: nowrap;
+      margin-top: 4px;
+    }
+
+    /* Hour chart */
+    .hour-chart {
+      display: flex;
+      align-items: flex-end;
+      gap: 2px;
+      height: 100px;
+    }
+    .hour-bar-wrap {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      height: 100%;
+      justify-content: flex-end;
+    }
+    .hour-bar {
+      width: 100%;
+      background: #1a1a2e;
+      min-height: 2px;
+      transition: background 0.2s;
+      cursor: pointer;
+      position: relative;
+    }
+    .hour-bar:hover { background: var(--gold); }
+    .hour-bar .bar-tooltip { font-size: 0.45rem; }
+    .hour-bar:hover .bar-tooltip { opacity: 1; }
+    .hour-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.4rem;
+      color: var(--mid);
+    }
+
+    /* Bottom row */
+    .bottom-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+    .list-box {
+      background: var(--gray);
+      padding: 2rem;
+    }
+    .list-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.6rem 0;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    .list-item:last-child { border-bottom: none; }
+    .list-item-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      color: var(--cream);
+      letter-spacing: 0.05em;
+      max-width: 70%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .list-item-value {
+      font-size: 1.2rem;
+      color: var(--gold);
+      font-weight: 300;
+    }
+    .list-bar-bg {
+      width: 100%;
+      height: 2px;
+      background: #1a1a1a;
+      margin-top: 4px;
+    }
+    .list-bar-fill {
+      height: 100%;
+      background: var(--gold-dim);
+    }
+    .no-data {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      color: var(--mid);
+      text-align: center;
+      padding: 2rem 0;
+    }
+
+    /* Lang chart */
+    .lang-chart {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      justify-content: center;
+      height: 80px;
+    }
+    .lang-item {
+      text-align: center;
+    }
+    .lang-pct {
+      font-size: 2rem;
+      font-weight: 300;
+      color: var(--gold);
+    }
+    .lang-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.55rem;
+      color: var(--mid);
+      letter-spacing: 0.1em;
+    }
+
+    /* Loading */
+    .loading {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      color: var(--mid);
+      text-align: center;
+      padding: 3rem;
+      letter-spacing: 0.2em;
+    }
+
+    @media (max-width: 900px) {
+      .stat-cards { grid-template-columns: 1fr 1fr; }
+      .charts-row { grid-template-columns: 1fr; }
+      .bottom-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="login-screen">
+  <div class="login-box">
+    <h1>FrameForge</h1>
+    <p>ANALYTICS DASHBOARD</p>
+    <input type="password" id="api-key-input" placeholder="API kulcs" autocomplete="off">
+    <button class="login-btn" onclick="doLogin()">Belépés →</button>
+    <p class="login-error" id="login-error">Hibás kulcs</p>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div id="dashboard">
+  <header>
+    <a href="/" class="logo">Frame<span>Forge</span></a>
+    <div class="header-right">
+      <span class="last-updated" id="last-updated"></span>
+      <button class="logout-btn" onclick="doLogout()">Kilépés</button>
+    </div>
+  </header>
+
+  <div id="content"><div class="loading">BETÖLTÉS...</div></div>
+</div>
+
+<script>
+const API_URL = 'https://badshampoo.myvnc.com/send_mail.php'; // ← változtasd meg!
+let apiKey = '45e5b39aa3b90e83546e96c538e557ba1bf59cdd5a2aed459a20cc4b1fed90d7';
+
+// ── LOGIN ────────────────────────────────────────────────
+document.getElementById('api-key-input').addEventListener('keydown', e => {
+  if (e.key === 'Enter') doLogin();
+});
+
+function doLogin() {
+  const key = document.getElementById('api-key-input').value.trim();
+  if (!key) return;
+  apiKey = key;
+  loadDashboard();
+}
+
+function doLogout() {
+  apiKey = '';
+  document.getElementById('dashboard').style.display = 'none';
+  document.getElementById('login-screen').style.display = 'flex';
+  document.getElementById('api-key-input').value = '';
+}
+
+// ── LOAD DATA ────────────────────────────────────────────
+async function loadDashboard() {
+  try {
+    const res  = await fetch(`${API_URL}?action=stats&key=${encodeURIComponent(apiKey)}`);
+    if (res.status === 403) {
+      document.getElementById('login-error').style.display = 'block';
+      return;
+    }
+    const data = await res.json();
+
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('dashboard').style.display = 'block';
+    document.getElementById('login-error').style.display = 'none';
+    document.getElementById('last-updated').textContent =
+      'Frissítve: ' + new Date().toLocaleTimeString('hu-HU');
+
+    renderDashboard(data);
+  } catch(e) {
+    document.getElementById('login-error').style.display = 'block';
+    document.getElementById('login-error').textContent = 'Kapcsolódási hiba';
+  }
+}
+
+// ── RENDER ───────────────────────────────────────────────
+function renderDashboard(d) {
+  const last30vals = Object.values(d.last30 || {});
+  const weekTotal  = last30vals.slice(-7).reduce((a,b) => a+b, 0);
+  const prevWeek   = last30vals.slice(-14,-7).reduce((a,b) => a+b, 0);
+  const trendPct   = prevWeek > 0 ? Math.round((weekTotal - prevWeek) / prevWeek * 100) : 0;
+  const trendClass = trendPct > 0 ? 'trend-up' : trendPct < 0 ? 'trend-down' : 'trend-same';
+  const trendSign  = trendPct > 0 ? '+' : '';
+
+  const maxBar  = Math.max(...last30vals, 1);
+  const maxHour = Math.max(...Object.values(d.hours || {}), 1);
+
+  // Pages top
+  const pages = Object.entries(d.pages || {}).sort((a,b) => b[1]-a[1]).slice(0,6);
+  const maxPage = pages[0]?.[1] || 1;
+
+  // Refs top
+  const refs = Object.entries(d.referrers || {}).sort((a,b) => b[1]-a[1]).slice(0,6);
+  const maxRef = refs[0]?.[1] || 1;
+
+  // Langs
+  const langs = d.langs || {};
+  const langTotal = Object.values(langs).reduce((a,b) => a+b, 0) || 1;
+
+  document.getElementById('content').innerHTML = `
+    <!-- STAT CARDS -->
+    <div class="stat-cards">
+      <div class="stat-card">
+        <div class="stat-label">Összes látogatás</div>
+        <div class="stat-value gold">${d.total?.toLocaleString() || 0}</div>
+        <div class="stat-sub">az oldal indulása óta</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Ma</div>
+        <div class="stat-value">${d.today || 0}</div>
+        <div class="stat-sub">tegnap: ${d.yesterday || 0}</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Ezen a héten</div>
+        <div class="stat-value">${weekTotal}</div>
+        <div class="stat-trend ${trendClass}">${trendSign}${trendPct}%</div>
+        <div class="stat-sub">előző héthez képest</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Átlag / nap</div>
+        <div class="stat-value">${Math.round(last30vals.reduce((a,b)=>a+b,0)/30)}</div>
+        <div class="stat-sub">utolsó 30 napban</div>
+      </div>
+    </div>
+
+    <!-- CHARTS ROW -->
+    <div class="charts-row" style="margin-top:2px">
+      <!-- 30 napos bar chart -->
+      <div class="chart-box">
+        <div class="chart-title">Utolsó 30 nap</div>
+        <div class="bar-chart">
+          ${Object.entries(d.last30 || {}).map(([date, val]) => `
+            <div class="bar-wrap">
+              <div class="bar" style="height:${Math.max(2, Math.round(val/maxBar*130))}px">
+                <div class="bar-tooltip">${date.slice(5)}: ${val}</div>
+              </div>
+              ${date.slice(8) % 5 === 0 || date.slice(8) === '01'
+                ? `<div class="bar-label">${date.slice(5)}</div>`
+                : '<div class="bar-label"></div>'}
+            </div>
+          `).join('')}
+        </div>
+      </div>
+
+      <!-- Óránkénti -->
+      <div class="chart-box">
+        <div class="chart-title">Napi eloszlás</div>
+        <div class="hour-chart">
+          ${Array.from({length:24}, (_,h) => {
+            const val = d.hours?.[h] || 0;
+            return `
+              <div class="hour-bar-wrap">
+                <div class="hour-bar" style="height:${Math.max(2, Math.round(val/maxHour*90))}px">
+                  <div class="bar-tooltip">${String(h).padStart(2,'0')}:00 – ${val}</div>
+                </div>
+                ${h % 6 === 0 ? `<div class="hour-label">${String(h).padStart(2,'0')}</div>` : '<div class="hour-label"></div>'}
+              </div>
+            `;
+          }).join('')}
+        </div>
+      </div>
+    </div>
+
+    <!-- BOTTOM ROW -->
+    <div class="bottom-row" style="margin-top:2px">
+      <!-- Oldalak -->
+      <div class="list-box">
+        <div class="chart-title">Top oldalak</div>
+        ${pages.length ? pages.map(([page, cnt]) => `
+          <div class="list-item">
+            <div>
+              <div class="list-item-label">${page || '/'}</div>
+              <div class="list-bar-bg"><div class="list-bar-fill" style="width:${Math.round(cnt/maxPage*100)}%"></div></div>
+            </div>
+            <div class="list-item-value">${cnt}</div>
+          </div>
+        `).join('') : '<div class="no-data">Még nincs adat</div>'}
+      </div>
+
+      <!-- Referrerek -->
+      <div class="list-box">
+        <div class="chart-title">Forgalom forrása</div>
+        ${refs.length ? refs.map(([ref, cnt]) => `
+          <div class="list-item">
+            <div>
+              <div class="list-item-label">${ref}</div>
+              <div class="list-bar-bg"><div class="list-bar-fill" style="width:${Math.round(cnt/maxRef*100)}%"></div></div>
+            </div>
+            <div class="list-item-value">${cnt}</div>
+          </div>
+        `).join('') : '<div class="no-data">Még nincs adat</div>'}
+      </div>
+
+      <!-- Nyelvek -->
+      <div class="list-box">
+        <div class="chart-title">Nyelv</div>
+        <div class="lang-chart">
+          ${Object.entries(langs).map(([lang, cnt]) => `
+            <div class="lang-item">
+              <div class="lang-pct">${Math.round(cnt/langTotal*100)}%</div>
+              <div class="lang-label">${lang.toUpperCase()}</div>
+            </div>
+          `).join('') || '<div class="no-data">Még nincs adat</div>'}
+        </div>
+        <div style="margin-top:1.5rem">
+          <div class="chart-title" style="margin-bottom:1rem">Összesítés</div>
+          ${Object.entries(langs).map(([lang, cnt]) => `
+            <div class="list-item">
+              <div class="list-item-label">${lang.toUpperCase()}</div>
+              <div class="list-item-value">${cnt}</div>
+            </div>
+          `).join('') || ''}
+        </div>
+      </div>
+    </div>
+  `;
+
+  // Auto refresh 60mp-enként
+  setTimeout(loadDashboard, 60000);
+}
+</script>
+</body>
+</html>
