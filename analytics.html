@@ -480,6 +480,9 @@ function renderDashboard(d) {
   const langs = d.langs || {};
   const langTotal = Object.values(langs).reduce((a,b) => a+b, 0) || 1;
 
+  // Countries
+  const countries = Object.entries(d.countries || {}).sort((a,b) => b[1]-a[1]);
+
   document.getElementById('content').innerHTML = `
     <!-- STAT CARDS -->
     <div class="stat-cards">
@@ -596,6 +599,25 @@ function renderDashboard(d) {
         </div>
       </div>
     </div>
+
+    <!-- COUNTRIES ROW -->
+    <div style="margin-top:2px">
+      <div class="list-box">
+        <div class="chart-title">Országok</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:2px">
+          ${countries.length ? countries.map(([code, cnt]) => `
+            <div class="list-item" style="gap:1rem">
+              <div style="display:flex;align-items:center;gap:0.75rem">
+                <img src="https://flagcdn.com/24x18/${code.toLowerCase()}.png" alt="${code}"
+                     style="width:24px;height:18px;object-fit:cover" onerror="this.style.display='none'">
+                <div class="list-item-label">${code}</div>
+              </div>
+              <div class="list-item-value">${cnt}</div>
+            </div>
+          `).join('') : '<div class="no-data">Még nincs adat</div>'}
+        </div>
+      </div>
+    </div>`;
   `;
 
   // Auto refresh 60mp-enként
