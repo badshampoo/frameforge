@@ -740,6 +740,68 @@
       letter-spacing: 0.1em;
     }
 
+    /* ── LIGHTBOX ── */
+    #lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.93);
+      z-index: 2000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+    }
+    #lightbox.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+    #lightbox-img {
+      max-width: 88vw;
+      max-height: 82vh;
+      object-fit: contain;
+      box-shadow: 0 0 80px rgba(0,0,0,0.9);
+      transform: scale(0.96);
+      transition: transform 0.3s;
+    }
+    #lightbox.open #lightbox-img {
+      transform: scale(1);
+    }
+    #lightbox-close {
+      position: absolute;
+      top: 1.5rem;
+      right: 2rem;
+      background: none;
+      border: 1px solid var(--gold-dim);
+      color: var(--gold);
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 0.45rem 1rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    #lightbox-close:hover {
+      background: var(--gold);
+      color: var(--black);
+    }
+    #lightbox-caption {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      color: var(--gold-dim);
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .portfolio-item { cursor: zoom-in; }
+    .hero-img { cursor: zoom-in; }
+
     /* ── ANIMATIONS ── */
     .fade-up {
       opacity: 0;
@@ -1240,6 +1302,43 @@
         }
       });
     });
+    // ── LIGHTBOX ──────────────────────────────────────────────────────
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const lightboxCaption = document.getElementById('lightbox-caption');
+
+    function openLightbox(src, caption) {
+      lightboxImg.src = src;
+      lightboxCaption.textContent = caption || '';
+      lightbox.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeLightbox() {
+      lightbox.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+
+    document.querySelectorAll('.portfolio-item').forEach(item => {
+      item.addEventListener('click', () => {
+        const img = item.querySelector('.p-img');
+        const title = item.querySelector('.p-title');
+        if (img) openLightbox(img.src, title ? title.textContent : '');
+      });
+    });
+    document.querySelectorAll('.hero-img').forEach(img => {
+      img.addEventListener('click', () => openLightbox(img.src, img.alt));
+    });
   </script>
+
+  <!-- Lightbox -->
+  <div id="lightbox">
+    <button id="lightbox-close">✕ Bezár</button>
+    <img id="lightbox-img" src="" alt="">
+    <span id="lightbox-caption"></span>
+  </div>
 </body>
 </html>
