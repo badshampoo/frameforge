@@ -1397,8 +1397,12 @@
 
       try {
         const res  = await fetch(API_URL, { method: 'POST', body: data });
-        const json = await res.json();
-        if (json.success) {
+        let success = res.ok;
+        try {
+          const json = await res.json();
+          if (typeof json.success === 'boolean') success = json.success;
+        } catch {}
+        if (success) {
           btn.textContent = currentLang === 'hu' ? 'Elküldve ✓' : 'Sent ✓';
           btn.style.background = '#2a5a2a';
           btn.style.color = '#fff';
