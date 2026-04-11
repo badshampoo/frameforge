@@ -313,7 +313,7 @@
     }
     .services-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       gap: 2px;
     }
     .service-card {
@@ -345,9 +345,15 @@
       margin-bottom: 2rem;
     }
     .service-icon {
-      font-size: 2.5rem;
+      width: 2.8rem;
+      height: 2.8rem;
       margin-bottom: 1.5rem;
       display: block;
+      color: var(--gold);
+    }
+    .service-icon svg {
+      width: 100%;
+      height: 100%;
     }
     .service-card h3 {
       font-size: 1.6rem;
@@ -429,64 +435,21 @@
     }
     .portfolio-grid {
       display: grid;
-      grid-template-columns: repeat(12, 1fr);
-      grid-auto-rows: 280px;
-      gap: 2px;
+      grid-template-columns: repeat(4, 1fr);
+      grid-auto-rows: 210px;
+      gap: 3px;
     }
     .portfolio-item {
       position: relative;
       overflow: hidden;
       background: var(--gray);
-      cursor: pointer;
+      cursor: zoom-in;
     }
-    .portfolio-item:nth-child(1) { grid-column: span 5; grid-row: span 2; }
-    .portfolio-item:nth-child(2) { grid-column: span 4; }
-    .portfolio-item:nth-child(3) { grid-column: span 3; }
-    .portfolio-item:nth-child(4) { grid-column: span 4; }
-    .portfolio-item:nth-child(5) { grid-column: span 3; }
-    .portfolio-item:nth-child(6) { grid-column: span 5; }
-    .portfolio-item:nth-child(7) { grid-column: span 4; }
-    .portfolio-item:nth-child(8)  { grid-column: span 3; }
-    .portfolio-item:nth-child(9)  { grid-column: span 4; }
-    .portfolio-item:nth-child(10) { grid-column: span 5; }
-    .portfolio-item:nth-child(11) { grid-column: span 3; }
-    .portfolio-item:nth-child(12) { grid-column: span 6; }
-    .portfolio-item:nth-child(13) { grid-column: span 3; }
-    .portfolio-item:nth-child(14) { grid-column: span 3; }
-    .portfolio-item:nth-child(15) { grid-column: span 4; }
-    .portfolio-item:nth-child(16) { grid-column: span 4; }
-    .portfolio-item:nth-child(17) { grid-column: span 4; }
-    .portfolio-item:nth-child(18) { grid-column: span 12; }
-    .portfolio-item:nth-child(19) { grid-column: span 3; }
-    .portfolio-item:nth-child(20) { grid-column: span 4; }
-    .portfolio-item:nth-child(21) { grid-column: span 5; }
-    .portfolio-item:nth-child(22) { grid-column: span 6; }
-    .portfolio-item:nth-child(23) { grid-column: span 6; }
-    .portfolio-item:nth-child(24) { grid-column: span 4; }
-    .portfolio-item:nth-child(25) { grid-column: span 4; }
-    .portfolio-item:nth-child(26) { grid-column: span 4; }
-    .portfolio-item:nth-child(27) { grid-column: span 5; }
-    .portfolio-item:nth-child(28) { grid-column: span 3; }
-    .portfolio-item:nth-child(29) { grid-column: span 4; }
-    .portfolio-item:nth-child(30) { grid-column: span 3; }
-    .portfolio-item:nth-child(31) { grid-column: span 3; }
-    .portfolio-item:nth-child(32) { grid-column: span 6; }
-    .portfolio-item:nth-child(33) { grid-column: span 4; }
-    .portfolio-item:nth-child(34) { grid-column: span 5; }
-    .portfolio-item:nth-child(35) { grid-column: span 3; }
-    .portfolio-item:nth-child(36) { grid-column: span 12; }
-    .portfolio-item:nth-child(37) { grid-column: span 4; }
-    .portfolio-item:nth-child(38) { grid-column: span 4; }
-    .portfolio-item:nth-child(39) { grid-column: span 4; }
-    .portfolio-item:nth-child(40) { grid-column: span 3; }
-    .portfolio-item:nth-child(41) { grid-column: span 6; }
-    .portfolio-item:nth-child(42) { grid-column: span 3; }
-    .portfolio-item:nth-child(43) { grid-column: span 6; }
-    .portfolio-item:nth-child(44) { grid-column: span 6; }
     .p-img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      object-position: top center;
       transition: transform 0.6s ease, filter 0.4s;
       filter: grayscale(15%);
     }
@@ -839,6 +802,49 @@
       transform: translateY(0);
     }
 
+    /* ── LOAD MORE ── */
+    .portfolio-load-more {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.2rem;
+      margin-top: 3rem;
+    }
+    .btn-load-more {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.8rem;
+      background: none;
+      border: 1px solid var(--gold-dim);
+      color: var(--gold);
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 0.85rem 2rem;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .btn-load-more:hover {
+      background: var(--gold);
+      color: var(--black);
+      border-color: var(--gold);
+    }
+    .btn-load-more svg {
+      width: 0.9rem;
+      height: 0.9rem;
+      transition: transform 0.3s;
+    }
+    .btn-load-more:hover svg {
+      transform: translateY(3px);
+    }
+    .load-more-count {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.55rem;
+      color: var(--mid);
+      letter-spacing: 0.15em;
+    }
+
     /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
       nav ul { display: none; }
@@ -846,9 +852,9 @@
       .hero-right { height: 50vh; }
       .hero-image-grid { position: relative; height: 100%; }
       .services-header, #contact { grid-template-columns: 1fr; gap: 2rem; }
-      .services-grid, .pricing-grid { grid-template-columns: 1fr; }
-      .portfolio-grid { grid-template-columns: 1fr 1fr; grid-auto-rows: 220px; }
-      .portfolio-item { grid-column: span 1 !important; grid-row: span 1 !important; }
+      .services-grid { grid-template-columns: 1fr 1fr; }
+      .pricing-grid { grid-template-columns: 1fr; }
+      .portfolio-grid { grid-template-columns: 1fr 1fr; grid-auto-rows: 180px; }
       section { padding: 4rem 1.5rem; }
       nav { padding: 1.5rem; }
       #lang-toggle { top: 1.5rem; right: 1.5rem; }
@@ -925,14 +931,23 @@
     <p class="section-label" data-hu="01 — Szolgáltatások" data-en="01 — Services">01 — Szolgáltatások</p>
     <div class="services-header fade-up">
       <h2 data-hu="Amit <em>elkészítek</em><br>neked" data-en="What I <em>create</em><br>for you">Amit <em>elkészítek</em><br>neked</h2>
-      <p data-hu="Minden iparágnak megvan a saját vizuális nyelve. Ételfotóktól a luxuskozmetikán át a divatfelvételekig — a képek eladnak." data-en="Every industry has its own visual language. From food photography to luxury cosmetics and fashion — visuals sell.">
-        Minden iparágnak megvan a saját vizuális nyelve. Ételfotóktól a luxuskozmetikán át a divatfelvételekig — a képek eladnak.
+      <p data-hu="Minden iparágnak megvan a saját vizuális nyelve. Ételfotóktól a luxuskozmetikán át a divatfelvételekig és egyedi merch grafikákig — a képek eladnak." data-en="Every industry has its own visual language. From food photography to luxury cosmetics, fashion and custom merch graphics — visuals sell.">
+        Minden iparágnak megvan a saját vizuális nyelve. Ételfotóktól a luxuskozmetikán át a divatfelvételekig és egyedi merch grafikákig — a képek eladnak.
       </p>
     </div>
     <div class="services-grid">
       <div class="service-card fade-up">
         <p class="service-num">— 01</p>
-        <span class="service-icon">🍽️</span>
+        <span class="service-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="12" y1="5" x2="12" y2="35"/>
+            <line x1="8" y1="5" x2="8" y2="14"/>
+            <line x1="16" y1="5" x2="16" y2="14"/>
+            <path d="M8 14 Q8 19 12 19 Q16 19 16 14"/>
+            <path d="M25 5 Q25 5 32 11 Q32 16 28 19 L28 35"/>
+            <line x1="25" y1="19" x2="28" y2="19"/>
+          </svg>
+        </span>
         <h3><em>Étel</em>fotó</h3>
         <p class="sub" data-hu="Food Photography" data-en="Food Photography">Food Photography</p>
         <p data-hu="Éttermi menük, delivery appok, élelmiszer webshopok számára. Gőzölgő ételek, tökéletes fény, étvágyat csinál." data-en="For restaurant menus, delivery apps and food shops. Steaming dishes, perfect lighting, makes mouths water.">
@@ -946,7 +961,13 @@
       </div>
       <div class="service-card fade-up">
         <p class="service-num">— 02</p>
-        <span class="service-icon">💄</span>
+        <span class="service-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="13" y="22" width="14" height="13" rx="1"/>
+            <rect x="15" y="14" width="10" height="8"/>
+            <path d="M17 14 L17 9 L20 5 L23 9 L23 14"/>
+          </svg>
+        </span>
         <h3><em>Kozmetikai</em><br>képek</h3>
         <p class="sub" data-hu="Cosmetics Photography" data-en="Cosmetics Photography">Cosmetics Photography</p>
         <p data-hu="Márvány felületek, selymes textúrák, luxus atmoszféra. Webshopoknak folyamatosan kellenek friss produktképek." data-en="Marble surfaces, silky textures, luxury atmosphere. Webshops always need fresh product images.">
@@ -960,7 +981,16 @@
       </div>
       <div class="service-card fade-up">
         <p class="service-num">— 03</p>
-        <span class="service-icon">👗</span>
+        <span class="service-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="20" cy="6" r="3"/>
+            <path d="M20 9 C20 9 22 12 22 15"/>
+            <path d="M22 15 L34 22 C35 23 34 25 33 25 L28 25"/>
+            <path d="M20 9 C20 9 18 12 18 15"/>
+            <path d="M18 15 L6 22 C5 23 6 25 7 25 L12 25"/>
+            <path d="M12 25 L10 35 L30 35 L28 25"/>
+          </svg>
+        </span>
         <h3><em>Divat</em><br>képek</h3>
         <p class="sub" data-hu="Fashion Photography" data-en="Fashion Photography">Fashion Photography</p>
         <p data-hu="Webshopoknak, tervezőknek, indie márkáknak. A drága fotózás helyett prémium minőség, töredék áron." data-en="For webshops, designers and indie brands. Premium quality instead of expensive photoshoots.">
@@ -970,6 +1000,27 @@
           <li data-hu="Termék és lifestyle képek" data-en="Product and lifestyle images">Termék és lifestyle képek</li>
           <li data-hu="Lookbook összeállítások" data-en="Lookbook compositions">Lookbook összeállítások</li>
           <li data-hu="Reklám kampány anyagok" data-en="Ad campaign materials">Reklám kampány anyagok</li>
+        </ul>
+      </div>
+      <div class="service-card fade-up">
+        <p class="service-num">— 04</p>
+        <span class="service-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M15 6 C15 8 17.2 9.5 20 9.5 C22.8 9.5 25 8 25 6"/>
+            <path d="M15 6 L7 10 L4 15 L10 20 L14 17 L14 34 L26 34 L26 17 L30 20 L36 15 L33 10 L25 6"/>
+            <circle cx="20" cy="24" r="3"/>
+            <line x1="20" y1="20" x2="20" y2="21"/>
+          </svg>
+        </span>
+        <h3><em>Egyedi</em><br>grafika</h3>
+        <p class="sub" data-hu="Merch & Print Design" data-en="Merch & Print Design">Merch & Print Design</p>
+        <p data-hu="Bögrére, pólóra, egérpadra, totebagre — bármire, amin meg akarsz jelenni. Egyedi grafikai anyag, amely a márkádat a fizikai világba viszi." data-en="Mugs, t-shirts, mousepads, tote bags — anything you want your brand on. Custom graphics that bring your brand into the physical world.">
+          Bögrére, pólóra, egérpadra, totebagre — bármire, amin meg akarsz jelenni. Egyedi grafikai anyag, amely a márkádat a fizikai világba viszi.
+        </p>
+        <ul class="service-list">
+          <li data-hu="Bögre, egérpad, kitűző" data-en="Mug, mousepad, pin">Bögre, egérpad, kitűző</li>
+          <li data-hu="Póló, totebag, textilprint" data-en="T-shirt, tote bag, textile print">Póló, totebag, textilprint</li>
+          <li data-hu="Logó adaptáció és brand elemek" data-en="Logo adaptation & brand assets">Logó adaptáció és brand elemek</li>
         </ul>
       </div>
     </div>
@@ -993,15 +1044,15 @@
         <div class="p-overlay"><div class="p-info"><span class="p-tag" data-hu="Étkezés" data-en="Food">Étkezés</span><p class="p-title">Magyar Gulyás</p></div></div>
       </div>
       <div class="portfolio-item" data-category="fashion">
-        <img src="img/ff18.jpg" alt="Fashion editorial" class="p-img">
+        <img src="img/ff18.jpg" alt="Futurewave divat kollekció AI termékfotó" class="p-img">
         <div class="p-overlay"><div class="p-info"><span class="p-tag" data-hu="Divat" data-en="Fashion">Divat</span><p class="p-title" data-hu="Futurewave Kollekció" data-en="Futurewave Collection">Futurewave Kollekció</p></div></div>
       </div>
       <div class="portfolio-item" data-category="cosmetics">
-        <img src="img/ff36.jpg" alt="Face serum" class="p-img">
+        <img src="img/ff36.jpg" alt="Face serum" class="p-img" style="object-position: center;">
         <div class="p-overlay"><div class="p-info"><span class="p-tag" data-hu="Kozmetikum" data-en="Cosmetics">Kozmetikum</span><p class="p-title" data-hu="Arcápoló Szérum" data-en="Face Serum">Arcápoló Szérum</p></div></div>
       </div>
       <div class="portfolio-item" data-category="food">
-        <img src="img/ff41.jpg" alt="Artisan burger" class="p-img">
+        <img src="img/ff41.jpg" alt="Artisan burger" class="p-img" style="object-position: center;">
         <div class="p-overlay"><div class="p-info"><span class="p-tag" data-hu="Étkezés" data-en="Food">Étkezés</span><p class="p-title">Artisan Burger</p></div></div>
       </div>
       <div class="portfolio-item" data-category="fashion">
@@ -1009,59 +1060,59 @@
         <div class="p-overlay"><div class="p-info"><span class="p-tag" data-hu="Divat" data-en="Fashion">Divat</span><p class="p-title" data-hu="Virágos Nyár" data-en="Summer Florals">Virágos Nyár</p></div></div>
       </div>
       <div class="portfolio-item" data-category="cosmetics">
-        <img src="img/ff42.jpg" alt="Perfume campaign" class="p-img">
+        <img src="img/ff42.jpg" alt="Perfume campaign" class="p-img" style="object-position: center;">
         <div class="p-overlay"><div class="p-info"><span class="p-tag" data-hu="Kozmetikum" data-en="Cosmetics">Kozmetikum</span><p class="p-title" data-hu="Parfüm Kampány" data-en="Perfume Campaign">Parfüm Kampány</p></div></div>
       </div>
       <div class="portfolio-item" data-category="food">
-        <img src="img/ff26.jpg" alt="Cappuccino" class="p-img">
+        <img src="img/ff26.jpg" alt="Cappuccino" class="p-img" style="object-position: center 60%;">
         <div class="p-overlay"><div class="p-info"><span class="p-tag" data-hu="Étkezés" data-en="Food">Étkezés</span><p class="p-title">Cappuccino</p></div></div>
       </div>
       <div class="portfolio-item" data-category="fashion">
-        <img src="img/ff47.jpg" alt="Daisy summer dress" class="p-img">
+        <img src="img/ff47.jpg" alt="Daisy summer dress" class="p-img" style="object-position: center;">
         <div class="p-overlay"><div class="p-info"><span class="p-tag" data-hu="Divat" data-en="Fashion">Divat</span><p class="p-title" data-hu="Avant-Garde" data-en="Avant-Garde">Avant-Garde</p></div></div>
       </div>
       <div class="portfolio-item" data-category="cosmetics">
-        <img src="img/ff31.jpg" alt="Bőrápolás" class="p-img">
+        <img src="img/ff31.jpg" alt="Rubinvörös rúzs kozmetikai termékfotó AI" class="p-img" style="object-position: center;">
         <div class="p-overlay"><div class="p-info"><span class="p-tag" data-hu="Kozmetikum" data-en="Cosmetics">Kozmetikum</span><p class="p-title" data-hu="Rubinvörös Rúzs" data-en="Ruby Red Lipstick">Rubinvörös Rúzs</p></div></div>
       </div>
       <div class="portfolio-item" data-category="food">
-        <img src="img/ff40.jpg" alt="Penne" class="p-img">
+        <img src="img/ff40.jpg" alt="Penne" class="p-img" style="object-position: center;">
         <div class="p-overlay"><div class="p-info"><span class="p-tag" data-hu="Étkezés" data-en="Food">Étkezés</span><p class="p-title" data-hu="Penne Bazsalikommal" data-en="Penne with Basil">Penne Bazsalikommal</p></div></div>
       </div>
       <div class="portfolio-item" data-category="cosmetics">
-        <img src="img/ff28.jpg" alt="Arckrém" class="p-img">
+        <img src="img/ff28.jpg" alt="Rózsa arckrém prémium kozmetikai termékfotó" class="p-img" style="object-position: center;">
         <div class="p-overlay"><div class="p-info"><span class="p-tag" data-hu="Kozmetikum" data-en="Cosmetics">Kozmetikum</span><p class="p-title" data-hu="Rózsa Arckrém" data-en="Rose Face Cream">Rózsa Arckrém</p></div></div>
       </div>
       <div class="portfolio-item" data-category="food">
-        <img src="img/ff38.jpg" alt="Gourmet torta" class="p-img">
+        <img src="img/ff38.jpg" alt="Gourmet torta" class="p-img" style="object-position: center;">
         <div class="p-overlay"><div class="p-info"><span class="p-tag" data-hu="Étkezés" data-en="Food">Étkezés</span><p class="p-title" data-hu="Gourmet Torta" data-en="Gourmet Cake">Gourmet Torta</p></div></div>
       </div>
       <div class="portfolio-item" data-category="cosmetics">
-        <img src="img/ff29.jpg" alt="C-vitamin szérum" class="p-img">
+        <img src="img/ff29.jpg" alt="C-vitamin szérum kozmetikai termékfotó" class="p-img" style="object-position: center;">
         <div class="p-overlay"><div class="p-info"><span class="p-tag" data-hu="Kozmetikum" data-en="Cosmetics">Kozmetikum</span><p class="p-title" data-hu="C-Vitamin Szérum" data-en="Vitamin C Serum">C-Vitamin Szérum</p></div></div>
       </div>
       <div class="portfolio-item" data-category="food">
-        <img src="img/ff34.jpg" alt="Macarons" class="p-img">
+        <img src="img/ff34.jpg" alt="Macarons" class="p-img" style="object-position: center;">
         <div class="p-overlay"><div class="p-info"><span class="p-tag" data-hu="Étkezés" data-en="Food">Étkezés</span><p class="p-title" data-hu="Párizsi Macaron" data-en="Parisian Macaron">Párizsi Macaron</p></div></div>
       </div>
       <div class="portfolio-item" data-category="cosmetics">
-        <img src="img/ff33.jpg" alt="Luxus hajápolás" class="p-img">
+        <img src="img/ff33.jpg" alt="Luxus hajápolás" class="p-img" style="object-position: center;">
         <div class="p-overlay"><div class="p-info"><span class="p-tag" data-hu="Kozmetikum" data-en="Cosmetics">Kozmetikum</span><p class="p-title" data-hu="Luxus Hajápolás" data-en="Luxury Hair Care">Luxus Hajápolás</p></div></div>
       </div>
       <div class="portfolio-item" data-category="food">
-        <img src="img/ff24.jpg" alt="Fekete kávé" class="p-img">
+        <img src="img/ff24.jpg" alt="Fekete kávé" class="p-img" style="object-position: center 60%;">
         <div class="p-overlay"><div class="p-info"><span class="p-tag" data-hu="Étkezés" data-en="Food">Étkezés</span><p class="p-title" data-hu="Fekete Kávé" data-en="Black Coffee">Fekete Kávé</p></div></div>
       </div>
       <div class="portfolio-item" data-category="food">
-        <img src="img/ff43.jpg" alt="Açaí bowl" class="p-img">
+        <img src="img/ff43.jpg" alt="Açaí bowl" class="p-img" style="object-position: center;">
         <div class="p-overlay"><div class="p-info"><span class="p-tag" data-hu="Étkezés" data-en="Food">Étkezés</span><p class="p-title" data-hu="Açaí Bowl" data-en="Açaí Bowl">Açaí Bowl</p></div></div>
       </div>
       <div class="portfolio-item" data-category="food">
-        <img src="img/ff48.jpg" alt="Citrom és jég" class="p-img">
+        <img src="img/ff48.jpg" alt="Citrom és jég" class="p-img" style="object-position: center;">
         <div class="p-overlay"><div class="p-info"><span class="p-tag" data-hu="Étkezés" data-en="Food">Étkezés</span><p class="p-title" data-hu="Frissítő Citrom" data-en="Refreshing Lemon">Frissítő Citrom</p></div></div>
       </div>
       <div class="portfolio-item" data-category="cosmetics">
-        <img src="img/ff22.jpg" alt="Pasztell körmök" class="p-img">
+        <img src="img/ff22.jpg" alt="Pasztell körmök" class="p-img" style="object-position: bottom;">
         <div class="p-overlay"><div class="p-info"><span class="p-tag" data-hu="Kozmetikum" data-en="Cosmetics">Kozmetikum</span><p class="p-title" data-hu="Pasztell Körmök" data-en="Pastel Nails">Pasztell Körmök</p></div></div>
       </div>
       <div class="portfolio-item" data-category="food">
@@ -1069,71 +1120,71 @@
         <div class="p-overlay"><div class="p-info"><span class="p-tag" data-hu="Étkezés" data-en="Food">Étkezés</span><p class="p-title" data-hu="Spagetti Bolognese" data-en="Spaghetti Bolognese">Spagetti Bolognese</p></div></div>
       </div>
       <div class="portfolio-item" data-category="food">
-        <img src="img/ff05.jpg" alt="Vörösbor" class="p-img">
+        <img src="img/ff05.jpg" alt="Vörösbor" class="p-img" style="object-position: center;">
         <div class="p-overlay"><div class="p-info"><span class="p-tag" data-hu="Étkezés" data-en="Food">Étkezés</span><p class="p-title" data-hu="Vörösbor Este" data-en="Red Wine Evening">Vörösbor Este</p></div></div>
       </div>
       <div class="portfolio-item" data-category="cosmetics">
-        <img src="img/ff23.jpg" alt="Szivárvány körmök" class="p-img">
+        <img src="img/ff23.jpg" alt="Szivárvány körmök" class="p-img" style="object-position: bottom;">
         <div class="p-overlay"><div class="p-info"><span class="p-tag" data-hu="Kozmetikum" data-en="Cosmetics">Kozmetikum</span><p class="p-title" data-hu="Szivárvány Körmök" data-en="Rainbow Nails">Szivárvány Körmök</p></div></div>
       </div>
       <div class="portfolio-item" data-category="food">
-        <img src="img/ff19.jpg" alt="Sajt válogatás" class="p-img">
+        <img src="img/ff19.jpg" alt="Sajt válogatás" class="p-img" style="object-position: center;">
         <div class="p-overlay"><div class="p-info"><span class="p-tag" data-hu="Étkezés" data-en="Food">Étkezés</span><p class="p-title" data-hu="Sajt Válogatás" data-en="Cheese Selection">Sajt Válogatás</p></div></div>
       </div>
       <div class="portfolio-item" data-category="food">
-        <img src="img/ff08.jpg" alt="Mangó smoothie" class="p-img">
+        <img src="img/ff08.jpg" alt="Mangó smoothie" class="p-img" style="object-position: center;">
         <div class="p-overlay"><div class="p-info"><span class="p-tag" data-hu="Étkezés" data-en="Food">Étkezés</span><p class="p-title" data-hu="Mangó Smoothie" data-en="Mango Smoothie">Mangó Smoothie</p></div></div>
       </div>
       <div class="portfolio-item" data-category="food">
-        <img src="img/ff32.jpg" alt="Eper smoothie" class="p-img">
+        <img src="img/ff32.jpg" alt="Eper smoothie" class="p-img" style="object-position: center;">
         <div class="p-overlay"><div class="p-info"><span class="p-tag" data-hu="Étkezés" data-en="Food">Étkezés</span><p class="p-title" data-hu="Eper Smoothie" data-en="Strawberry Smoothie">Eper Smoothie</p></div></div>
       </div>
       <div class="portfolio-item" data-category="food">
-        <img src="img/ff21.jpg" alt="Epic sör" class="p-img">
+        <img src="img/ff21.jpg" alt="Epic sör" class="p-img" style="object-position: center;">
         <div class="p-overlay"><div class="p-info"><span class="p-tag" data-hu="Étkezés" data-en="Food">Étkezés</span><p class="p-title" data-hu="Epic Sör Kampány" data-en="Epic Beer Campaign">Epic Sör Kampány</p></div></div>
       </div>
       <div class="portfolio-item" data-category="food">
-        <img src="img/ff14.jpg" alt="Prémium sör" class="p-img">
+        <img src="img/ff14.jpg" alt="Prémium sör" class="p-img" style="object-position: center;">
         <div class="p-overlay"><div class="p-info"><span class="p-tag" data-hu="Étkezés" data-en="Food">Étkezés</span><p class="p-title" data-hu="Prémium Sör" data-en="Premium Beer">Prémium Sör</p></div></div>
       </div>
       <div class="portfolio-item" data-category="food">
-        <img src="img/ff06.jpg" alt="Sommelier" class="p-img">
+        <img src="img/ff06.jpg" alt="Sommelier" class="p-img" style="object-position: center;">
         <div class="p-overlay"><div class="p-info"><span class="p-tag" data-hu="Étkezés" data-en="Food">Étkezés</span><p class="p-title" data-hu="Sommelier Pillanat" data-en="Sommelier Moment">Sommelier Pillanat</p></div></div>
       </div>
       <div class="portfolio-item" data-category="food">
-        <img src="img/ff09.jpg" alt="Granola parfait" class="p-img">
+        <img src="img/ff09.jpg" alt="Granola parfait" class="p-img" style="object-position: center;">
         <div class="p-overlay"><div class="p-info"><span class="p-tag" data-hu="Étkezés" data-en="Food">Étkezés</span><p class="p-title" data-hu="Granola Parfait" data-en="Granola Parfait">Granola Parfait</p></div></div>
       </div>
       <div class="portfolio-item" data-category="food">
-        <img src="img/ff11.jpg" alt="Bogyós granola" class="p-img">
+        <img src="img/ff11.jpg" alt="Bogyós granola" class="p-img" style="object-position: center;">
         <div class="p-overlay"><div class="p-info"><span class="p-tag" data-hu="Étkezés" data-en="Food">Étkezés</span><p class="p-title" data-hu="Bogyós Granola" data-en="Berry Granola">Bogyós Granola</p></div></div>
       </div>
       <div class="portfolio-item" data-category="cosmetics">
-        <img src="img/ff27.jpg" alt="Nyári körömápoló" class="p-img">
+        <img src="img/ff27.jpg" alt="Nyári körömápoló" class="p-img" style="object-position: bottom;">
         <div class="p-overlay"><div class="p-info"><span class="p-tag" data-hu="Kozmetikum" data-en="Cosmetics">Kozmetikum</span><p class="p-title" data-hu="Nyári Körömápoló" data-en="Summer Nail Polish">Nyári Körömápoló</p></div></div>
       </div>
       <div class="portfolio-item" data-category="food">
-        <img src="img/ff35.jpg" alt="Sötét torta" class="p-img">
+        <img src="img/ff35.jpg" alt="Sötét torta" class="p-img" style="object-position: center;">
         <div class="p-overlay"><div class="p-info"><span class="p-tag" data-hu="Étkezés" data-en="Food">Étkezés</span><p class="p-title" data-hu="Sötét Csokoládé" data-en="Dark Chocolate Cake">Sötét Csokoládé</p></div></div>
       </div>
       <div class="portfolio-item" data-category="food">
-        <img src="img/ff46.jpg" alt="Kovászos kenyér" class="p-img">
+        <img src="img/ff46.jpg" alt="Kovászos kenyér" class="p-img" style="object-position: center;">
         <div class="p-overlay"><div class="p-info"><span class="p-tag" data-hu="Étkezés" data-en="Food">Étkezés</span><p class="p-title" data-hu="Kovászos Kenyér" data-en="Sourdough Bread">Kovászos Kenyér</p></div></div>
       </div>
       <div class="portfolio-item" data-category="food">
-        <img src="img/ff20.jpg" alt="Csirkés tál" class="p-img">
+        <img src="img/ff20.jpg" alt="Csirkés tál" class="p-img" style="object-position: center;">
         <div class="p-overlay"><div class="p-info"><span class="p-tag" data-hu="Étkezés" data-en="Food">Étkezés</span><p class="p-title" data-hu="Csirkés Tál" data-en="Chicken Bowl">Csirkés Tál</p></div></div>
       </div>
       <div class="portfolio-item" data-category="food">
-        <img src="img/ff16.jpg" alt="Craft sör" class="p-img">
+        <img src="img/ff16.jpg" alt="Craft sör" class="p-img" style="object-position: center;">
         <div class="p-overlay"><div class="p-info"><span class="p-tag" data-hu="Étkezés" data-en="Food">Étkezés</span><p class="p-title" data-hu="Craft Sör" data-en="Craft Beer">Craft Sör</p></div></div>
       </div>
       <div class="portfolio-item" data-category="food">
-        <img src="img/ff25.jpg" alt="Reggeli kávé" class="p-img">
+        <img src="img/ff25.jpg" alt="Reggeli kávé" class="p-img" style="object-position: center 60%;">
         <div class="p-overlay"><div class="p-info"><span class="p-tag" data-hu="Étkezés" data-en="Food">Étkezés</span><p class="p-title" data-hu="Reggeli Kávé" data-en="Morning Coffee">Reggeli Kávé</p></div></div>
       </div>
       <div class="portfolio-item" data-category="food">
-        <img src="img/ff45.jpg" alt="Gyümölcsös tál" class="p-img">
+        <img src="img/ff45.jpg" alt="Gyümölcsös tál" class="p-img" style="object-position: center;">
         <div class="p-overlay"><div class="p-info"><span class="p-tag" data-hu="Étkezés" data-en="Food">Étkezés</span><p class="p-title" data-hu="Gyümölcsös Tál" data-en="Fruit Bowl">Gyümölcsös Tál</p></div></div>
       </div>
       <div class="portfolio-item" data-category="food">
@@ -1141,7 +1192,7 @@
         <div class="p-overlay"><div class="p-info"><span class="p-tag" data-hu="Étkezés" data-en="Food">Étkezés</span><p class="p-title" data-hu="Joghurt Kampány" data-en="Yogurt Campaign">Joghurt Kampány</p></div></div>
       </div>
       <div class="portfolio-item" data-category="food">
-        <img src="img/ff44.jpg" alt="Prémium burger" class="p-img">
+        <img src="img/ff44.jpg" alt="Prémium burger" class="p-img" style="object-position: center;">
         <div class="p-overlay"><div class="p-info"><span class="p-tag" data-hu="Étkezés" data-en="Food">Étkezés</span><p class="p-title" data-hu="Prémium Burger" data-en="Premium Burger">Prémium Burger</p></div></div>
       </div>
       <div class="portfolio-item" data-category="fashion">
@@ -1149,21 +1200,33 @@
         <div class="p-overlay"><div class="p-info"><span class="p-tag" data-hu="Divat" data-en="Fashion">Divat</span><p class="p-title" data-hu="Fitness Életmód" data-en="Fitness Lifestyle">Fitness Életmód</p></div></div>
       </div>
       <div class="portfolio-item" data-category="fashion">
-        <img src="img/ff03.jpg" alt="Hi-vis divat" class="p-img">
+        <img src="img/ff03.jpg" alt="Hi-vis munkavédelmi kollekció divat kampány" class="p-img">
         <div class="p-overlay"><div class="p-info"><span class="p-tag" data-hu="Divat" data-en="Fashion">Divat</span><p class="p-title" data-hu="Hi-Vis Kollekció" data-en="Hi-Vis Collection">Hi-Vis Kollekció</p></div></div>
       </div>
       <div class="portfolio-item" data-category="fashion">
-        <img src="img/ff04.jpg" alt="Munkavédelmi kabát" class="p-img">
+        <img src="img/ff04.jpg" alt="Munkavédelmi kabát" class="p-img" style="object-position: center;">
         <div class="p-overlay"><div class="p-info"><span class="p-tag" data-hu="Divat" data-en="Fashion">Divat</span><p class="p-title" data-hu="Munkavédelmi Kabát" data-en="Safety Jacket">Munkavédelmi Kabát</p></div></div>
       </div>
       <div class="portfolio-item" data-category="fashion">
-        <img src="img/ff13.jpg" alt="Lifestyle fotó" class="p-img">
+        <img src="img/ff13.jpg" alt="Urban lifestyle divat kampány fotó" class="p-img" style="object-position: center 20%;">
         <div class="p-overlay"><div class="p-info"><span class="p-tag" data-hu="Divat" data-en="Fashion">Divat</span><p class="p-title" data-hu="Urban Lifestyle" data-en="Urban Lifestyle">Urban Lifestyle</p></div></div>
       </div>
       <div class="portfolio-item" data-category="fashion">
         <img src="img/ff17.jpg" alt="Kisállat kampány" class="p-img">
         <div class="p-overlay"><div class="p-info"><span class="p-tag" data-hu="Divat" data-en="Fashion">Divat</span><p class="p-title" data-hu="Kisállat Kampány" data-en="Pet Campaign">Kisállat Kampány</p></div></div>
       </div>
+    </div>
+
+    <!-- Load more -->
+    <div class="portfolio-load-more" id="load-more-wrap">
+      <button class="btn-load-more" id="load-more-btn" onclick="loadMore()">
+        <span id="load-more-label" data-hu="Több munka betöltése" data-en="Load more works">Több munka betöltése</span>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
+          <line x1="8" y1="2" x2="8" y2="14"/>
+          <polyline points="4,10 8,14 12,10"/>
+        </svg>
+      </button>
+      <p class="load-more-count" id="load-more-count"></p>
     </div>
   </section>
 
@@ -1180,7 +1243,13 @@
     <!-- Próbakép banner -->
     <div class="fade-up" style="background:var(--gold);padding:1rem 2rem;margin-bottom:2px;display:flex;align-items:center;justify-content:space-between;gap:2rem;flex-wrap:wrap;">
       <p style="font-family:'Space Mono',monospace;font-size:0.65rem;letter-spacing:0.15em;color:var(--black);text-transform:uppercase;">
-        🎁 <span data-hu="2 db ingyenes próbakép — kötelezettség nélkül" data-en="2 free sample images — no obligation">2 db ingyenes próbakép — kötelezettség nélkül</span>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width:1.1em;height:1.1em;vertical-align:middle;margin-right:0.5em;flex-shrink:0;">
+          <rect x="2" y="8" width="16" height="10" rx="1"/>
+          <line x1="10" y1="8" x2="10" y2="18"/>
+          <path d="M10 8 C10 8 7 8 7 5.5 C7 4 8 3 10 5 C12 3 13 4 13 5.5 C13 8 10 8 10 8Z"/>
+          <line x1="2" y1="11" x2="18" y2="11"/>
+        </svg>
+        <span data-hu="2 db ingyenes próbakép — kötelezettség nélkül" data-en="2 free sample images — no obligation">2 db ingyenes próbakép — kötelezettség nélkül</span>
       </p>
       <a href="#contact" style="font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.15em;color:var(--black);text-transform:uppercase;border:1px solid var(--black);padding:0.4rem 1rem;text-decoration:none;" data-hu="Kérem a próbaképeket" data-en="Request sample images">Kérem a próbaképeket</a>
     </div>
@@ -1265,6 +1334,14 @@
     </div>
   </section>
 
+  <!-- Post-Pricing CTA -->
+  <div id="pricing-cta" class="fade-up" style="background:var(--gold);padding:5rem 3rem;text-align:center;">
+    <p style="font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.35em;color:var(--black);text-transform:uppercase;opacity:0.6;margin-bottom:1.2rem;" data-hu="Készen állsz?" data-en="Ready to start?">Készen állsz?</p>
+    <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,4.5vw,3.8rem);font-weight:300;letter-spacing:-0.02em;color:var(--black);line-height:1.1;margin-bottom:1.5rem;" data-hu="Kérj <em style='font-style:italic;color:#5a3e10;'>ingyenes</em> árajánlatot ma" data-en="Request a <em style='font-style:italic;color:#5a3e10;'>free</em> quote today">Kérj <em style="font-style:italic;color:#5a3e10;">ingyenes</em> árajánlatot ma</h2>
+    <p style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:rgba(0,0,0,0.55);line-height:1.8;margin-bottom:2.5rem;max-width:480px;margin-left:auto;margin-right:auto;" data-hu="Küldd el az igényeid — 24 órán belül személyre szabott ajánlattal jelentkezem." data-en="Share your needs — I'll get back with a personalised quote within 24 hours.">Küldd el az igényeid — 24 órán belül személyre szabott ajánlattal jelentkezem.</p>
+    <a href="#contact" style="display:inline-block;background:var(--black);color:var(--gold);font-family:'Space Mono',monospace;font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;text-decoration:none;padding:1.1rem 2.8rem;transition:background 0.3s;" data-hu="Ajánlatot kérek" data-en="Get a quote" onmouseover="this.style.background='#222'" onmouseout="this.style.background='var(--black)'">Ajánlatot kérek</a>
+  </div>
+
   <!-- Contact -->
   <section id="contact">
     <div class="contact-left fade-up">
@@ -1341,6 +1418,8 @@
       // Update featured label
       const feat = document.querySelector('.price-card.featured');
       if (feat) feat.setAttribute('data-label', lang === 'hu' ? 'Népszerű' : 'Popular');
+      // Refresh load-more counter text
+      if (typeof updatePortfolio === 'function') updatePortfolio(false);
     }
 
     // ── SCROLL ANIMATIONS ─────────────────────────────────────────────
@@ -1353,22 +1432,79 @@
     }, { threshold: 0.1 });
     document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
 
-    // ── PORTFOLIO FILTER ───────────────────────────────────────────────
+    // ── PORTFOLIO LOAD MORE + FILTER ──────────────────────────────────
+    const BATCH_SIZE = 9;
+    let visibleCount = BATCH_SIZE;
+    let currentFilter = 'all';
+
+    function getFilteredItems() {
+      return Array.from(document.querySelectorAll('.portfolio-item')).filter(item =>
+        currentFilter === 'all' || item.dataset.category === currentFilter
+      );
+    }
+
+    function updatePortfolio(animate) {
+      const allItems = Array.from(document.querySelectorAll('.portfolio-item'));
+      const filteredItems = getFilteredItems();
+
+      allItems.forEach(item => {
+        const inFilter = filteredItems.includes(item);
+        const idx = filteredItems.indexOf(item);
+        if (!inFilter) {
+          item.style.opacity = '0.15';
+          item.style.display = '';
+        } else if (idx < visibleCount) {
+          item.style.display = '';
+          if (animate && idx >= visibleCount - BATCH_SIZE) {
+            item.style.opacity = '0';
+            item.style.transform = 'translateY(16px)';
+            setTimeout(() => {
+              item.style.transition = 'opacity 0.45s ease, transform 0.45s ease';
+              item.style.opacity = '1';
+              item.style.transform = '';
+            }, (idx % BATCH_SIZE) * 60);
+          } else {
+            item.style.opacity = '1';
+            item.style.transform = '';
+          }
+        } else {
+          item.style.display = 'none';
+          item.style.opacity = '';
+          item.style.transform = '';
+        }
+      });
+
+      // Update button
+      const remaining = filteredItems.length - visibleCount;
+      const wrap = document.getElementById('load-more-wrap');
+      const countEl = document.getElementById('load-more-count');
+      if (wrap) wrap.style.display = remaining > 0 ? 'flex' : 'none';
+      if (countEl) {
+        const total = filteredItems.length;
+        const shown = Math.min(visibleCount, total);
+        countEl.textContent = currentLang === 'hu'
+          ? `${shown} / ${total} munka látható`
+          : `${shown} / ${total} works shown`;
+      }
+    }
+
+    function loadMore() {
+      visibleCount += BATCH_SIZE;
+      updatePortfolio(true);
+    }
+
     document.querySelectorAll('.filter-tab').forEach(btn => {
       btn.addEventListener('click', () => {
         document.querySelectorAll('.filter-tab').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
-        const filter = btn.dataset.filter;
-        document.querySelectorAll('.portfolio-item').forEach(item => {
-          if (filter === 'all' || item.dataset.category === filter) {
-            item.style.display = '';
-            item.style.opacity = '1';
-          } else {
-            item.style.opacity = '0.15';
-          }
-        });
+        currentFilter = btn.dataset.filter;
+        visibleCount = BATCH_SIZE;
+        updatePortfolio(false);
       });
     });
+
+    // Init
+    updatePortfolio(false);
 
     // ── CONFIG ────────────────────────────────────────────────────────
     const API_URL = 'https://badshampoo.myvnc.com/send_mail.php'; // ← változtasd meg!
